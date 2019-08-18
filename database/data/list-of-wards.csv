@@ -1,0 +1,323 @@
+STT,Quan,Xa
+1,Quận 1,Phường Tân Định
+2,Quận 1,Phường Đa Kao
+3,Quận 1,Phường Bến Nghé
+4,Quận 1,Phường Bến Thành
+5,Quận 1,Phường Nguyễn Thái Bình
+6,Quận 1,Phường Phạm Ngũ Lão
+7,Quận 1,Phường Cầu Ông Lãnh
+8,Quận 1,Phường Cô Giang
+9,Quận 1,Phường Nguyễn Cư Trinh
+10,Quận 1,Phường Cầu Kho
+11,Quận 12,Phường Thạnh Xuân
+12,Quận 12,Phường Thạnh Lộc
+13,Quận 12,Phường Hiệp Thành
+14,Quận 12,Phường Thới An
+15,Quận 12,Phường Tân Chánh Hiệp
+16,Quận 12,Phường An Phú Đông
+17,Quận 12,Phường Tân Thới Hiệp
+18,Quận 12,Phường Trung Mỹ Tây
+19,Quận 12,Phường Tân Hưng Thuận
+20,Quận 12,Phường Đông Hưng Thuận
+21,Quận 12,Phường Tân Thới Nhất
+22,Quận Thủ Đức,Phường Linh Xuân
+23,Quận Thủ Đức,Phường Bình Chiểu
+24,Quận Thủ Đức,Phường Linh Trung
+25,Quận Thủ Đức,Phường Tam Bình
+26,Quận Thủ Đức,Phường Tam Phú
+27,Quận Thủ Đức,Phường Hiệp Bình Phước
+28,Quận Thủ Đức,Phường Hiệp Bình Chánh
+29,Quận Thủ Đức,Phường Linh Chiểu
+30,Quận Thủ Đức,Phường Linh Tây
+31,Quận Thủ Đức,Phường Linh Đông
+32,Quận Thủ Đức,Phường Bình Thọ
+33,Quận Thủ Đức,Phường Trường Thọ
+34,Quận 9,Phường Long Bình
+35,Quận 9,Phường Long Thạnh Mỹ
+36,Quận 9,Phường Tân Phú
+37,Quận 9,Phường Hiệp Phú
+38,Quận 9,Phường Tăng Nhơn Phú A
+39,Quận 9,Phường Tăng Nhơn Phú B
+40,Quận 9,Phường Phước Long B
+41,Quận 9,Phường Phước Long A
+42,Quận 9,Phường Trường Thạnh
+43,Quận 9,Phường Long Phước
+44,Quận 9,Phường Long Trường
+45,Quận 9,Phường Phước Bình
+46,Quận 9,Phường Phú Hữu
+47,Quận Gò Vấp,Phường 15
+48,Quận Gò Vấp,Phường 13
+49,Quận Gò Vấp,Phường 17
+50,Quận Gò Vấp,Phường 06
+51,Quận Gò Vấp,Phường 16
+52,Quận Gò Vấp,Phường 12
+53,Quận Gò Vấp,Phường 14
+54,Quận Gò Vấp,Phường 10
+55,Quận Gò Vấp,Phường 05
+56,Quận Gò Vấp,Phường 07
+57,Quận Gò Vấp,Phường 04
+58,Quận Gò Vấp,Phường 01
+59,Quận Gò Vấp,Phường 09
+60,Quận Gò Vấp,Phường 08
+61,Quận Gò Vấp,Phường 11
+62,Quận Gò Vấp,Phường 03
+63,Quận Bình Thạnh,Phường 13
+64,Quận Bình Thạnh,Phường 11
+65,Quận Bình Thạnh,Phường 27
+66,Quận Bình Thạnh,Phường 26
+67,Quận Bình Thạnh,Phường 12
+68,Quận Bình Thạnh,Phường 25
+69,Quận Bình Thạnh,Phường 05
+70,Quận Bình Thạnh,Phường 07
+71,Quận Bình Thạnh,Phường 24
+72,Quận Bình Thạnh,Phường 06
+73,Quận Bình Thạnh,Phường 14
+74,Quận Bình Thạnh,Phường 15
+75,Quận Bình Thạnh,Phường 02
+76,Quận Bình Thạnh,Phường 01
+77,Quận Bình Thạnh,Phường 03
+78,Quận Bình Thạnh,Phường 17
+79,Quận Bình Thạnh,Phường 21
+80,Quận Bình Thạnh,Phường 22
+81,Quận Bình Thạnh,Phường 19
+82,Quận Bình Thạnh,Phường 28
+83,Quận Tân Bình,Phường 02
+84,Quận Tân Bình,Phường 04
+85,Quận Tân Bình,Phường 12
+86,Quận Tân Bình,Phường 13
+87,Quận Tân Bình,Phường 01
+88,Quận Tân Bình,Phường 03
+89,Quận Tân Bình,Phường 11
+90,Quận Tân Bình,Phường 07
+91,Quận Tân Bình,Phường 05
+92,Quận Tân Bình,Phường 10
+93,Quận Tân Bình,Phường 06
+94,Quận Tân Bình,Phường 08
+95,Quận Tân Bình,Phường 09
+96,Quận Tân Bình,Phường 14
+97,Quận Tân Bình,Phường 15
+98,Quận Tân Phú,Phường Tân Sơn Nhì
+99,Quận Tân Phú,Phường Tây Thạnh
+100,Quận Tân Phú,Phường Sơn Kỳ
+101,Quận Tân Phú,Phường Tân Qúy
+102,Quận Tân Phú,Phường Tân Thành
+103,Quận Tân Phú,Phường Phú Thọ Hoà
+104,Quận Tân Phú,Phường Phú Thạnh
+105,Quận Tân Phú,Phường Phú Trung
+106,Quận Tân Phú,Phường Hoà Thạnh
+107,Quận Tân Phú,Phường Hiệp Tân
+108,Quận Tân Phú,Phường Tân Thới Hoà
+109,Quận Phú Nhuận,Phường 04
+110,Quận Phú Nhuận,Phường 05
+111,Quận Phú Nhuận,Phường 09
+112,Quận Phú Nhuận,Phường 07
+113,Quận Phú Nhuận,Phường 03
+114,Quận Phú Nhuận,Phường 01
+115,Quận Phú Nhuận,Phường 02
+116,Quận Phú Nhuận,Phường 08
+117,Quận Phú Nhuận,Phường 15
+118,Quận Phú Nhuận,Phường 10
+119,Quận Phú Nhuận,Phường 11
+120,Quận Phú Nhuận,Phường 17
+121,Quận Phú Nhuận,Phường 14
+122,Quận Phú Nhuận,Phường 12
+123,Quận Phú Nhuận,Phường 13
+124,Quận 2,Phường Thảo Điền
+125,Quận 2,Phường An Phú
+126,Quận 2,Phường Bình An
+127,Quận 2,Phường Bình Trưng Đông
+128,Quận 2,Phường Bình Trưng Tây
+129,Quận 2,Phường Bình Khánh
+130,Quận 2,Phường An Khánh
+131,Quận 2,Phường Cát Lái
+132,Quận 2,Phường Thạnh Mỹ Lợi
+133,Quận 2,Phường An Lợi Đông
+134,Quận 2,Phường Thủ Thiêm
+135,Quận 3,Phường 08
+136,Quận 3,Phường 07
+137,Quận 3,Phường 14
+138,Quận 3,Phường 12
+139,Quận 3,Phường 11
+140,Quận 3,Phường 13
+141,Quận 3,Phường 06
+142,Quận 3,Phường 09
+143,Quận 3,Phường 10
+144,Quận 3,Phường 04
+145,Quận 3,Phường 05
+146,Quận 3,Phường 03
+147,Quận 3,Phường 02
+148,Quận 3,Phường 01
+149,Quận 10,Phường 15
+150,Quận 10,Phường 13
+151,Quận 10,Phường 14
+152,Quận 10,Phường 12
+153,Quận 10,Phường 11
+154,Quận 10,Phường 10
+155,Quận 10,Phường 09
+156,Quận 10,Phường 01
+157,Quận 10,Phường 08
+158,Quận 10,Phường 02
+159,Quận 10,Phường 04
+160,Quận 10,Phường 07
+161,Quận 10,Phường 05
+162,Quận 10,Phường 06
+163,Quận 10,Phường 03
+164,Quận 11,Phường 15
+165,Quận 11,Phường 05
+166,Quận 11,Phường 14
+167,Quận 11,Phường 11
+168,Quận 11,Phường 03
+169,Quận 11,Phường 10
+170,Quận 11,Phường 13
+171,Quận 11,Phường 08
+172,Quận 11,Phường 09
+173,Quận 11,Phường 12
+174,Quận 11,Phường 07
+175,Quận 11,Phường 06
+176,Quận 11,Phường 04
+177,Quận 11,Phường 01
+178,Quận 11,Phường 02
+179,Quận 11,Phường 16
+180,Quận 4,Phường 12
+181,Quận 4,Phường 13
+182,Quận 4,Phường 09
+183,Quận 4,Phường 06
+184,Quận 4,Phường 08
+185,Quận 4,Phường 10
+186,Quận 4,Phường 05
+187,Quận 4,Phường 18
+188,Quận 4,Phường 14
+189,Quận 4,Phường 04
+190,Quận 4,Phường 03
+191,Quận 4,Phường 16
+192,Quận 4,Phường 02
+193,Quận 4,Phường 15
+194,Quận 4,Phường 01
+195,Quận 5,Phường 04
+196,Quận 5,Phường 09
+197,Quận 5,Phường 03
+198,Quận 5,Phường 12
+199,Quận 5,Phường 02
+200,Quận 5,Phường 08
+201,Quận 5,Phường 15
+202,Quận 5,Phường 07
+203,Quận 5,Phường 01
+204,Quận 5,Phường 11
+205,Quận 5,Phường 14
+206,Quận 5,Phường 05
+207,Quận 5,Phường 06
+208,Quận 5,Phường 10
+209,Quận 5,Phường 13
+210,Quận 6,Phường 14
+211,Quận 6,Phường 13
+212,Quận 6,Phường 09
+213,Quận 6,Phường 06
+214,Quận 6,Phường 12
+215,Quận 6,Phường 05
+216,Quận 6,Phường 11
+217,Quận 6,Phường 02
+218,Quận 6,Phường 01
+219,Quận 6,Phường 04
+220,Quận 6,Phường 08
+221,Quận 6,Phường 03
+222,Quận 6,Phường 07
+223,Quận 6,Phường 10
+224,Quận 8,Phường 08
+225,Quận 8,Phường 02
+226,Quận 8,Phường 01
+227,Quận 8,Phường 03
+228,Quận 8,Phường 11
+229,Quận 8,Phường 09
+230,Quận 8,Phường 10
+231,Quận 8,Phường 04
+232,Quận 8,Phường 13
+233,Quận 8,Phường 12
+234,Quận 8,Phường 05
+235,Quận 8,Phường 14
+236,Quận 8,Phường 06
+237,Quận 8,Phường 15
+238,Quận 8,Phường 16
+239,Quận 8,Phường 07
+240,Quận Bình Tân,Phường Bình Hưng Hòa
+241,Quận Bình Tân,Phường Bình Hưng Hoà A
+242,Quận Bình Tân,Phường Bình Hưng Hoà B
+243,Quận Bình Tân,Phường Bình Trị Đông
+244,Quận Bình Tân,Phường Bình Trị Đông A
+245,Quận Bình Tân,Phường Bình Trị Đông B
+246,Quận Bình Tân,Phường Tân Tạo
+247,Quận Bình Tân,Phường Tân Tạo A
+248,Quận Bình Tân,Phường An Lạc
+249,Quận Bình Tân,Phường An Lạc A
+250,Quận 7,Phường Tân Thuận Đông
+251,Quận 7,Phường Tân Thuận Tây
+252,Quận 7,Phường Tân Kiểng
+253,Quận 7,Phường Tân Hưng
+254,Quận 7,Phường Bình Thuận
+255,Quận 7,Phường Tân Quy
+256,Quận 7,Phường Phú Thuận
+257,Quận 7,Phường Tân Phú
+258,Quận 7,Phường Tân Phong
+259,Quận 7,Phường Phú Mỹ
+260,Huyện Củ Chi,Thị trấn Củ Chi
+261,Huyện Củ Chi,Xã Phú Mỹ Hưng
+262,Huyện Củ Chi,Xã An Phú
+263,Huyện Củ Chi,Xã Trung Lập Thượng
+264,Huyện Củ Chi,Xã An Nhơn Tây
+265,Huyện Củ Chi,Xã Nhuận Đức
+266,Huyện Củ Chi,Xã Phạm Văn Cội
+267,Huyện Củ Chi,Xã Phú Hòa Đông
+268,Huyện Củ Chi,Xã Trung Lập Hạ
+269,Huyện Củ Chi,Xã Trung An
+270,Huyện Củ Chi,Xã Phước Thạnh
+271,Huyện Củ Chi,Xã Phước Hiệp
+272,Huyện Củ Chi,Xã Tân An Hội
+273,Huyện Củ Chi,Xã Phước Vĩnh An
+274,Huyện Củ Chi,Xã Thái Mỹ
+275,Huyện Củ Chi,Xã Tân Thạnh Tây
+276,Huyện Củ Chi,Xã Hòa Phú
+277,Huyện Củ Chi,Xã Tân Thạnh Đông
+278,Huyện Củ Chi,Xã Bình Mỹ
+279,Huyện Củ Chi,Xã Tân Phú Trung
+280,Huyện Củ Chi,Xã Tân Thông Hội
+281,Huyện Hóc Môn,Thị trấn Hóc Môn
+282,Huyện Hóc Môn,Xã Tân Hiệp
+283,Huyện Hóc Môn,Xã Nhị Bình
+284,Huyện Hóc Môn,Xã Đông Thạnh
+285,Huyện Hóc Môn,Xã Tân Thới Nhì
+286,Huyện Hóc Môn,Xã Thới Tam Thôn
+287,Huyện Hóc Môn,Xã Xuân Thới Sơn
+288,Huyện Hóc Môn,Xã Tân Xuân
+289,Huyện Hóc Môn,Xã Xuân Thới Đông
+290,Huyện Hóc Môn,Xã Trung Chánh
+291,Huyện Hóc Môn,Xã Xuân Thới Thượng
+292,Huyện Hóc Môn,Xã Bà Điểm
+293,Huyện Bình Chánh,Thị trấn Tân Túc
+294,Huyện Bình Chánh,Xã Phạm Văn Hai
+295,Huyện Bình Chánh,Xã Vĩnh Lộc A
+296,Huyện Bình Chánh,Xã Vĩnh Lộc B
+297,Huyện Bình Chánh,Xã Bình Lợi
+298,Huyện Bình Chánh,Xã Lê Minh Xuân
+299,Huyện Bình Chánh,Xã Tân Nhựt
+300,Huyện Bình Chánh,Xã Tân Kiên
+301,Huyện Bình Chánh,Xã Bình Hưng
+302,Huyện Bình Chánh,Xã Phong Phú
+303,Huyện Bình Chánh,Xã An Phú Tây
+304,Huyện Bình Chánh,Xã Hưng Long
+305,Huyện Bình Chánh,Xã Đa Phước
+306,Huyện Bình Chánh,Xã Tân Quý Tây
+307,Huyện Bình Chánh,Xã Bình Chánh
+308,Huyện Bình Chánh,Xã Quy Đức
+309,Huyện Nhà Bè,Thị trấn Nhà Bè
+310,Huyện Nhà Bè,Xã Phước Kiển
+311,Huyện Nhà Bè,Xã Phước Lộc
+312,Huyện Nhà Bè,Xã Nhơn Đức
+313,Huyện Nhà Bè,Xã Phú Xuân
+314,Huyện Nhà Bè,Xã Long Thới
+315,Huyện Nhà Bè,Xã Hiệp Phước
+316,Huyện Cần Giờ,Thị trấn Cần Thạnh
+317,Huyện Cần Giờ,Xã Bình Khánh
+318,Huyện Cần Giờ,Xã Tam Thôn Hiệp
+319,Huyện Cần Giờ,Xã An Thới Đông
+320,Huyện Cần Giờ,Xã Thạnh An
+321,Huyện Cần Giờ,Xã Long Hòa
+322,Huyện Cần Giờ,Xã Lý Nhơn

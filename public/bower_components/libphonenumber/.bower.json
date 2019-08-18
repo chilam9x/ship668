@@ -1,0 +1,21 @@
+{
+  "name": "libphonenumber",
+  "main": "dist/libphonenumber.js",
+  "version": "0.9.4",
+  "homepage": "https://github.com/nathanhammond/libphonenumber",
+  "authors": [
+    "Nathan Hammond <nathan@nathanhammond.com>"
+  ],
+  "description": "Google's libphonenumber as an easily included JavaScript library.",
+  "license": "Apache 2",
+  "ignore": [],
+  "_release": "0.9.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.9.4",
+    "commit": "2a118ad365590f2b899e88d2e4b3ad49f614a367"
+  },
+  "_source": "https://github.com/nathanhammond/libphonenumber.git",
+  "_target": "^0.9.4",
+  "_originalSource": "libphonenumber"
+}

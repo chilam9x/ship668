@@ -183,7 +183,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class
 
     ],
 
@@ -244,7 +244,8 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
         'Pusher' => Pusher\Pusher::class,
-        'LRedis'    => Illuminate\Support\Facades\Redis::class
+        'LRedis'    => Illuminate\Support\Facades\Redis::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
     ],
 
 ];

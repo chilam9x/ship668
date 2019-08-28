@@ -180,6 +180,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::get('wallet/bookings/{walletId}', 'Wallet\WalletController@getBookings');
     Route::get('wallet/export-booking/{walletId}', 'Wallet\WalletController@exportBooking');
     Route::get('wallet/update-status/{walletId}', 'Wallet\WalletController@getUpdateStatus');
+    //raymond
+    Route::group(['prefix' => 'qrcode'], function () {
+        Route::get('/', 'QRCode\QRCodeController@index');
+        Route::post('create', 'QRCode\QRCodeController@postCreate');
+        Route::post('find', 'QRCode\QRCodeController@find');
+        Route::get('print', 'QRCode\QRCodeController@print');
+    });
 });
 
 Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function () {

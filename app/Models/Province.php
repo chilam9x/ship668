@@ -21,7 +21,8 @@ class Province extends Model
         if ($default){
             $data[-1] = 'Tất cả';
         }
-        $province = Province::orderBy('name', 'asc')->get();
+        $province = Province::orderBy('name', 'asc')->where('id',50)->get();
+       // $province = Province::where(id, 50)->get();
         foreach ($province as $p) {
             $data[$p->id] = $p->name;
         }

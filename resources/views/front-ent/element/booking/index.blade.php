@@ -81,7 +81,8 @@
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Mã đơn hàng</th>
+                        <th scope="col">QR Code</th>
+                        <th scope="col">Ảnh đơn hàng</th>
                         <th scope="col">Tên đơn hàng</th>
                         <th scope="col">Họ tên</th>
                         <th scope="col">Địa chỉ</th>
@@ -103,7 +104,14 @@
                     @if(isset($bookings))
                         @foreach($bookings as $b)
                             <tr>
-                                <th scope="row">{!! $b->uuid !!}</th>
+                                <th> {!! QrCode::size(100)->generate($b->uuid); !!} <br>{!! $b->uuid !!}</th>
+                                <th>
+                                @if($b->image_order!=null )
+                                <img src="/{{$b->image_order}}" width="100">
+                                @else
+                                <img src='/img/not-found.png' width="100">
+                                @endif
+                                 </th>
                                 <td>{!! $b->name !!}</td>
                                 <td>{!! $b->send_name !!}</td>
                                 <td>{!! $b->send_full_address !!}</td>

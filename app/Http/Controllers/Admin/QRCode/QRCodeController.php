@@ -29,13 +29,13 @@ class QRCodeController extends Controller
     public function postCreate(Request $request)
     {
         $res = QRCode::postCreate($request->qrcode);
-        return view('admin.qrcode.print', ['qrcode' => $res]);
+        return view('admin.elements.qrcode.print', ['qrcode' => $res]);
        
     }
     public function print()
     {
         $res = QRCode::getQRCodeListUnused();
-        return view('admin.qrcode.print', ['qrcode' => $res]);
+        return view('admin.elements.qrcode.print', ['qrcode' => $res]);
     }
     public function edit($id)
     {

@@ -301,8 +301,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <label class="control-label" for="inputError">Tạm ứng tiền</label>
-                                <br><input type="radio" class=""  name="is_advance_money" value="0" @if(@$customer->is_vip == 0) checked="" @endif> Không
-                                <br><input type="radio" class=""  name="is_advance_money" value="1" @if(@$customer->is_vip == 1) checked="" @endif> Có
+                                <br><input type="radio" class=""  name="is_advance_money" value="0" @if(@$customer->is_advance_money == 0) checked="" @endif> Không
+                                <br><input type="radio" class=""  name="is_advance_money" value="1" @if(@$customer->is_advance_money == 1) checked="" @endif> Có
                             </div>
                         </div>
                     </div>

@@ -154,6 +154,7 @@ class CustomerController extends Controller
                 $data->avatar = $filePath . $filename;
             }
             $data->is_vip = isset($request->is_vip) ? $request->is_vip : 0;
+            $data->is_advance_money = isset($request->is_advance_money) ? $request->is_advance_money : 0;
             $data->save();
             $delivery = new DeliveryAddress();
             $delivery->user_id = $data->id;
@@ -253,6 +254,7 @@ class CustomerController extends Controller
                 $data->avatar = $filePath . $filename;
             }
             $data->is_vip = isset($request->is_vip) ? $request->is_vip : 0;
+            $data->is_advance_money = isset($request->is_advance_money) ? $request->is_advance_money : 0;
             $data->save();
             DeliveryAddress::where('id', '!=', $request->delivery_address)->update(['default' => 0]);
             DB::commit();

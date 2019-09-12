@@ -60,8 +60,7 @@ class UserController extends Controller
 
     public function getCustomer()
     {
-        $user = User::where('role', 'customer')->where('delete_status', 0);
-
+        $user = User::where('role', 'customer')->where('delete_status', 0)->orderBy('id','desc');
         return datatables()->of($user)
             ->addColumn('action', function ($user) {
                 $action = [];

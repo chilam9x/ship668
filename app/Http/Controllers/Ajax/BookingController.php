@@ -16,7 +16,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use function dd;
 use App\Http\Controllers\Controller;
-use Auth, DB;
+use Auth;
+use Illuminate\Support\Facades\DB;
 use function in_array;
 use function microtime;
 use function url;
@@ -54,7 +55,7 @@ class BookingController extends Controller
         } else {
             $booking = Booking::whereIn('status', ['new', 'taking'])->where('sub_status', 'none');
         }
-        // $booking = $booking->orderBy('id', 'DESC')->orderBy('status', 'desc')->get();
+        $booking = $booking->orderBy('id', 'DESC');
         $booking = $booking->with(['deliveries']);
         return datatables()->of($booking)
             ->addColumn('action', function ($b) {
@@ -109,6 +110,9 @@ class BookingController extends Controller
                 }
                 return $image;
             })
+            ->editColumn('image_order', function ($b) {
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+            })
             ->editColumn('status', function ($b) {
                 return $b->status == 'new' ? 'Mới' : 'Đang lấy';
             })
@@ -138,7 +142,7 @@ class BookingController extends Controller
                 $delivery = BookDelivery::where('book_id', $b->id)->where('category', 'receive')->where('status', 'processing')->where('sending_active', 1)->select('created_at as receive_created_at')->first();
                 return !empty($delivery) ? $delivery->receive_created_at : '';
             })
-            ->rawColumns(['report_image', 'action', 'send_name'])
+            ->rawColumns(['report_image', 'action', 'send_name','image_order'])
             ->make(true);
     }
 

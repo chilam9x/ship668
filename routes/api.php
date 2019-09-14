@@ -68,6 +68,7 @@ Route::group(['prefix' => 'order', 'namespace' => 'API', 'middleware' => VerifyJ
     Route::get('wallet/withdrawal', 'WalletController@withDrawal');
     Route::get('wallet/description', 'WalletController@getWalletDescription');
     Route::get('total-summary', 'WalletController@getTotalSummary');
+
     Route::group(['prefix' => 'customer'], function() {
         Route::get('last-book', 'Customer\OrderController@lastedBookSender');
         Route::put('updatebook/{id}/other-note', 'Customer\OrderController@updateNote');
@@ -78,7 +79,7 @@ Route::group(['prefix' => 'order', 'namespace' => 'API', 'middleware' => VerifyJ
     Route::group(['prefix' => 'shipper'], function () {
         Route::get('listbook', 'Shipper\OrderController@getListBook');
         Route::post('listbook-wait', 'Shipper\OrderController@getBookShipperWait');
-   
+
         Route::get('listbook-wait/detail', 'Shipper\OrderController@getBookShipperWaitDetail');
         Route::post('auto-assign', 'OrderController@assignShipperAuto');
         Route::post('auto-assign-single', 'Shipper\OrderController@assignSingleShipperAuto');
@@ -125,4 +126,11 @@ Route::group(['prefix' => 'setting', 'namespace' => 'API'], function () {
 
 Route::group(['prefix' => 'policy', 'namespace' => 'API'], function () {
     Route::get('/', 'PolicyController@getPolicy');
+});
+//--------RAYMOND------
+Route::group(['prefix' => 'qrcode', 'namespace' => 'API'], function () {
+    Route::post('check-qrcode-create-new', 'QRCodeController@checkQRCodeCreateNew');
+});
+Route::group(['prefix' => 'order', 'namespace' => 'API'], function () {
+    Route::post('create', 'OrderController@create');
 });

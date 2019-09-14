@@ -68,6 +68,7 @@ class APIUserController extends ApiController
                 'errors' => $validator->errors()
             ], 422);
         }
+        
         $user = User::where('username', $req->account)
                     ->orWhere('phone_number', $req->account)
                     ->orWhere('email', $req->account)

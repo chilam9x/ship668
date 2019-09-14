@@ -708,4 +708,23 @@ class Booking extends Model
             $query->deliveries()->delete();
         });
     }
+
+
+
+    //-----------RAYMOND API---------
+    public static function create($data){
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        dd(Auth::user());
+        $qrcode_name[0]=QRCode::postCreate(1);
+        $qr=QRCode::findQRCode($qrcode_name[0]);
+        $order=DB::table('bookings')->insertGetId([
+            'COD'=>$data->COD,
+            'uuid'=>$qr->name,
+            'qrcode_id'=>$qr->id,
+            'created_at'=>date('Y-m-d H:i:s'),
+            'status'=>'new',
+        ]);
+        return 200;
+
+    }
 }

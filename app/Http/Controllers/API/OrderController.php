@@ -1906,8 +1906,23 @@ class OrderController extends ApiController {
         //         dispatch(new PushNotificationBook($device->device_token, $notification->title, $notification->title, $message, $device->device_type, $collapseKey));
         //     }
         // }
+    
 
+    }
 
+    //----------------RAYMOND API-----------
+    public function create(Request $req) {
+        try {
+            $booking=Booking::create($req);
+            if($booking==200)
+            {
+                return response()->json(['msg' => 'Bạn đã tạo đơn hàng thành công', 'code' => 200]);
+            }else{
+                return response()->json(['msg' => 'Vui lòng kiểm tra lại', 'code' => 200]);
+            }
+        } catch (\Exception $e) {
+            return $e;
+        }
     }
 }
 

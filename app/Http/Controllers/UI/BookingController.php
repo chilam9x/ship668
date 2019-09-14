@@ -53,7 +53,7 @@ class BookingController extends Controller
     }
 
     public function allBooking(){
-        $db = Booking::where('sender_id', Auth::user()->id);
+        $db = DB::table('bookings as b')->leftJoin('qrcode as q','b.qrcode_id','=','q.id')->where('b.sender_id', Auth::user()->id)->select('b.*','q.name as qr_name');
 
         if (isset(request()->keyword) && !empty(request()->keyword)) {
             $db = $db->where(function($q){
@@ -68,7 +68,7 @@ class BookingController extends Controller
             });
         }
 
-        $all = $db->orderBy('created_at', 'desc')->paginate(10);
+        $all = $db->orderBy('b.created_at', 'desc')->paginate(10);
         $url = url('front-ent/booking/all');
         $keyword = isset(request()->keyword) ? request()->keyword : '';
         $countBookStatus = $this->countBookStatus();

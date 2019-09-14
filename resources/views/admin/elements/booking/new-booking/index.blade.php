@@ -70,40 +70,40 @@
         </div>
         <div class="col-lg-12">
             @include('admin.table_paging', [
-               'id' => 'new_booking',
-               'title' => [
-                       'caption' => 'Dữ liệu đơn hàng mới',
-                       'icon' => 'fa fa-table',
-                       'class' => 'portlet box green',
-               ],
-               'url' => url("/ajax/new_booking"),
-               'columns' => [
-                       ['data' => 'created_at', 'title' => 'Ngày tạo'],
-                       ['data' => 'receive_created_at', 'title' => 'Ngày đi lấy', 'orderable' => false, 'searchable' => false],
-                       ['data' => 'user_create', 'title' => 'Người tạo đơn', 'orderable' => false, 'searchable' => false],
-                       ['data' => 'uuid', 'title' => 'Mã đơn hàng'],
-                       ['data' => 'name', 'title' => 'Tên đơn hàng'],
-                       ['data' => 'send_name', 'title' => 'Người gửi'],
-                       ['data' => 'send_phone', 'title' => 'Số điện thoại'],
-                       ['data' => 'send_full_address', 'title' => 'Địa chỉ'],
-                       ['data' => 'receive_name', 'title' => 'Người nhận'],
-                       ['data' => 'receive_phone', 'title' => 'Số điện thoại'],
-                       ['data' => 'receive_full_address', 'title' => 'Địa chỉ'],
-                       ['data' => 'weight', 'title' => 'Khối lượng(gram)'],
-                       ['data' => 'transport_type', 'title' => 'Phương thức vận chuyển'],
-                       ['data' => 'price', 'title' => 'Giá'],
-                       ['data' => 'incurred', 'title' => 'Chi phí phát sinh'],
-                       ['data' => 'paid', 'title' => 'Số tiền đã thanh toán'],
-                       ['data' => 'COD', 'title' => 'Thu hộ'],
-                       ['data' => 'status', 'title' => 'Trạng thái'],
-                       ['data' => 'payment_type', 'title' => 'Ghi chú'],
-                       ['data' => 'other_note', 'title' => 'Ghi chú khác'],
-                       ['data' => 'note', 'title' => 'Ghi chú hệ thống'],
-                       ['data' => 'report_image', 'title' => 'Ảnh báo cáo'],
-                       ['data' => 'shipper', 'title' => 'Tên Shipper'],
-                       ['data' => 'action', 'title' => 'Hành động', 'orderable' => false]
-                   ]
-               ])
+                'id' => 'new_booking',
+                'title' => [
+                        'caption' => 'Dữ liệu đơn hàng mới',
+                        'icon' => 'fa fa-table',
+                        'class' => 'portlet box green',
+                ],
+                'url' => url("/ajax/new_booking"),
+                'columns' => [
+                        ['data' => 'image_order', 'title' => 'Ảnh đơn hàng'],
+                        ['data' => 'created_at', 'title' => 'Ngày tạo'],
+                        ['data' => 'receive_created_at', 'title' => 'Ngày đi lấy', 'orderable' => false, 'searchable' => false],
+                        ['data' => 'user_create', 'title' => 'Người tạo đơn', 'orderable' => false, 'searchable' => false],
+                        ['data' => 'name', 'title' => 'Tên đơn hàng'],
+                        ['data' => 'send_name', 'title' => 'Người gửi'],
+                        ['data' => 'send_phone', 'title' => 'Số điện thoại'],
+                        ['data' => 'send_full_address', 'title' => 'Địa chỉ'],
+                        ['data' => 'receive_name', 'title' => 'Người nhận'],
+                        ['data' => 'receive_phone', 'title' => 'Số điện thoại'],
+                        ['data' => 'receive_full_address', 'title' => 'Địa chỉ'],
+                        ['data' => 'weight', 'title' => 'Khối lượng(gram)'],
+                        ['data' => 'transport_type', 'title' => 'Phương thức vận chuyển'],
+                        ['data' => 'price', 'title' => 'Giá'],
+                        ['data' => 'incurred', 'title' => 'Chi phí phát sinh'],
+                        ['data' => 'paid', 'title' => 'Số tiền đã thanh toán'],
+                        ['data' => 'COD', 'title' => 'Thu hộ'],
+                        ['data' => 'status', 'title' => 'Trạng thái'],
+                        ['data' => 'payment_type', 'title' => 'Ghi chú'],
+                        ['data' => 'other_note', 'title' => 'Ghi chú khác'],
+                        ['data' => 'note', 'title' => 'Ghi chú hệ thống'],
+                        ['data' => 'report_image', 'title' => 'Ảnh báo cáo'],
+                        ['data' => 'shipper', 'title' => 'Tên Shipper'],
+                        ['data' => 'action', 'title' => 'Hành động', 'orderable' => false]
+                ]
+                ])
         </div>
     </div>
 

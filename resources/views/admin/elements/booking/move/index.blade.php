@@ -72,8 +72,9 @@
                ],
                'url' => url("/ajax/move"),
                'columns' => [
+                    ['data' => 'image_order', 'title' => 'Ảnh đơn hàng'],
+                    ['data' => 'uuid', 'title' => 'QR Code'],
                        ['data' => 'created_at', 'title' => 'Ngày tạo'],
-                       ['data' => 'uuid', 'title' => 'Mã đơn hàng'],
                        ['data' => 'name', 'title' => 'Tên đơn hàng'],
                        ['data' => 'send_name', 'title' => 'Người gửi'],
                        ['data' => 'send_phone', 'title' => 'Số điện thoại'],

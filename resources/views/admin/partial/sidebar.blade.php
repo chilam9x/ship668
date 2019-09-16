@@ -37,7 +37,7 @@
         <li class="nav-item start @if(isset($active)&& $active == 'qrcode') active @endif">
             <a href="{{ url('/admin/qrcode') }}" class="nav-link">
                 <i class="fa fa-qrcode" aria-hidden="true"></i>
-                <span class="title">Quản lý QR code</span>
+                <span class="title">Quản lý QR Code</span>
                 @if(isset($active)&& $active == 'qrcode')<span class="selected"></span>
                 @endif
             </a>

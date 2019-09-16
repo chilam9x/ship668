@@ -1913,6 +1913,8 @@ class OrderController extends ApiController {
     //----------------RAYMOND API-----------
     public function create(Request $req) {
         try {
+            $user=Auth::user();
+            dd($user);
             $booking=Booking::create($req);
             if($booking==200)
             {

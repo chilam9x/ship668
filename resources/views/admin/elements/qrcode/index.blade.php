@@ -1,7 +1,7 @@
 @extends('admin.app')
 
 @section('title')
-QRCode
+QR Code
 @endsection
 
 @section('sub-title')
@@ -19,8 +19,8 @@ danh sách
     <form class="form-inline text-right" action="{{ url('/admin/qrcode/find') }}" method="POST">
         <input type="hidden" name="_token" value="{{csrf_token()}}">
         <div class="form-group">
-            <label for="email">Tên code:</label>
-            <input type="text" class="form-control" name="name" placeholder="Nhập tên code">
+            <label for="email">Tên QR Code:</label>
+            <input type="text" class="form-control" name="name" placeholder="Nhập tên QR Code">
         </div>
         <button type="submit" class="btn btn-default">Tìm</button>
     </form>
@@ -30,9 +30,9 @@ danh sách
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>QRcode</th>
-                    <th>Tên code</th>
+                    <th>ID QR Code</th>
+                    <th>ID đơn hàng</th>
+                    <th>QR Code</th>
                     <th>Trạng thái</th>
                     <th>Ngày sử dụng</th>
                     <th>Ngày tạo</th>
@@ -42,8 +42,8 @@ danh sách
                 @foreach($qrcode as $q)
                 <tr>
                     <td>{{$q->id}}</td>
-                    <td> {!! QrCode::size(100)->generate($q->name); !!} </td>
-                    <td>{{$q->name}}</td>
+                    <td>{{$q->booking_id}}</td>
+                    <td> {!! QrCode::size(100)->generate($q->name); !!} <br> {{$q->name}}</td>
                     <td>
                         @if($q->is_used==1)
                         <span class="bg-primary"> Đã sử dụng </span>
@@ -68,14 +68,14 @@ danh sách
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Thêm mới qrcode</h4>
+                <h4 class="modal-title">Thêm mới QR Code</h4>
             </div>
             <form class="" action="{{ url('/admin/qrcode/create') }}" method="POST">
                 <div class="modal-body">
                     <input type="hidden" name="_token" value="{{csrf_token()}}">
                     <div class="form-group">
-                        <label for="email">Số lượng qrcode:</label>
-                        <input type="number" class="form-control" name="qrcode" placeholder=" Nhập số lượng QR code ">
+                        <label for="email">Số lượng QR Code:</label>
+                        <input type="number" class="form-control" name="qrcode" placeholder=" Nhập số lượng QR Code ">
                     </div>
                 </div>
                 <div class="modal-footer">

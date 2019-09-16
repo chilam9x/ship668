@@ -79,6 +79,7 @@
                 'url' => url("/ajax/new_booking"),
                 'columns' => [
                         ['data' => 'image_order', 'title' => 'Ảnh đơn hàng'],
+                        ['data' => 'uuid', 'title' => 'QR Code'],
                         ['data' => 'created_at', 'title' => 'Ngày tạo'],
                         ['data' => 'receive_created_at', 'title' => 'Ngày đi lấy', 'orderable' => false, 'searchable' => false],
                         ['data' => 'user_create', 'title' => 'Người tạo đơn', 'orderable' => false, 'searchable' => false],

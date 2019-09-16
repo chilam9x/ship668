@@ -9,12 +9,16 @@ class QRCode
 {
     public static function getList()
     {
-        $res = DB::table('qrcode')->orderBy('id', 'desc')->paginate(3);
+        $res = DB::table('qrcode as q')->leftJoin('bookings as b','b.qrcode_id','=','q.id')->select('q.*','b.id as booking_id')->orderBy('id', 'desc')->paginate(20);
         return $res;
     }
     public static function find($data)
     {
-        $res = DB::table('qrcode')->where('name', 'LIKE', '%' .  $data . '%')->orderBy('id', 'desc')->paginate(3);
+        $res = DB::table('qrcode as q')
+        ->leftJoin('bookings as b','b.qrcode_id','=','q.id')
+        ->select('q.*','b.id as booking_id')
+        ->where('q.name', 'LIKE', '%' .  $data . '%')
+        ->orderBy('q.id', 'desc')->paginate(20);
         return $res;
     }
     public static function getQRCodeListUnused()

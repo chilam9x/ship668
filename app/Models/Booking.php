@@ -714,16 +714,17 @@ class Booking extends Model
     //-----------RAYMOND API---------
     public static function create($data){
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        dd(Auth::user());
-        $qrcode_name[0]=QRCode::postCreate(1);
-        $qr=QRCode::findQRCode($qrcode_name[0]);
+        $user_id=Auth::user()->id;
+        $qr=QRCode::findQRCode($data->qrcode);
         $order=DB::table('bookings')->insertGetId([
             'COD'=>$data->COD,
             'uuid'=>$qr->name,
             'qrcode_id'=>$qr->id,
+            'sender_id'=>$user_id,
             'created_at'=>date('Y-m-d H:i:s'),
             'status'=>'new',
         ]);
+        DB::table('qrcode')->where('id',$qr->id)->update(['is_used'=>1,'used_at'=>date('Y-m-d H:i:s'),]);
         return 200;
 
     }

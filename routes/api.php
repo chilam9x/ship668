@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use App\Http\Middleware\VerifyJWTToken;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,12 +12,11 @@ use App\Http\Middleware\VerifyJWTToken;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
 
 Route::group(['prefix' => 'users', 'namespace' => 'Api', 'middleware' => VerifyJWTToken::class], function () {
     Route::post('updategeneral', 'APIUserController@updateGeneral');
@@ -31,7 +30,7 @@ Route::group(['prefix' => 'users', 'namespace' => 'Api', 'middleware' => VerifyJ
     Route::get('updateaddress/{id}', 'APIUserController@updateAddress');
     Route::delete('removedelivery/{id}', 'APIUserController@removeDelivery');
     Route::get('getaddress', 'APIUserController@getSendOrReceiveAddress');
-    
+
     Route::post('location', 'LocationController@location');
     Route::post('turn-on-parttime', 'APIUserController@turnOnParttime');
     Route::post('update/device', 'APIUserController@updateDevice');
@@ -69,7 +68,7 @@ Route::group(['prefix' => 'order', 'namespace' => 'API', 'middleware' => VerifyJ
     Route::get('wallet/description', 'WalletController@getWalletDescription');
     Route::get('total-summary', 'WalletController@getTotalSummary');
 
-    Route::group(['prefix' => 'customer'], function() {
+    Route::group(['prefix' => 'customer'], function () {
         Route::get('last-book', 'Customer\OrderController@lastedBookSender');
         Route::put('updatebook/{id}/other-note', 'Customer\OrderController@updateNote');
         Route::put('deny/{id}', 'Customer\OrderController@RequestReturn');
@@ -91,7 +90,7 @@ Route::group(['prefix' => 'order', 'namespace' => 'API', 'middleware' => VerifyJ
         Route::get('area-scope', 'OrderController@getAreaScope');
         Route::get('area-scope-shipping', 'OrderController@getAreaScopeShipping');
         Route::get('listbook-count', 'Shipper\OrderController@getBookShipperCount');
-        
+
         Route::put('updatebook/{id}/weight', 'Shipper\OrderController@updateWeightPrice');
     });
 
@@ -129,8 +128,12 @@ Route::group(['prefix' => 'policy', 'namespace' => 'API'], function () {
 });
 //--------RAYMOND------
 Route::group(['prefix' => 'qrcode', 'namespace' => 'API'], function () {
-    Route::post('check-qrcode-create-new', 'QRCodeController@checkQRCodeCreateNew');
+    Route::group(['prefix' => 'customer', 'namespace' => 'API'], function () {
+        Route::post('check-qrcode-create-new', 'QRCodeController@checkQRCodeCreateNew');
+    });
 });
 Route::group(['prefix' => 'order', 'namespace' => 'API'], function () {
-    Route::post('create', 'OrderController@create');
+    Route::group(['prefix' => 'customer', 'namespace' => 'API'], function () {
+        Route::post('create', 'OrderController@create');
+    });
 });

@@ -724,8 +724,7 @@ class Booking extends Model
             'created_at'=>date('Y-m-d H:i:s'),
             'status'=>'new',
         ]);
-        DB::table('qrcode')->where('id',$qr->id)->update(['is_used'=>1,'used_at'=>date('Y-m-d H:i:s'),]);
+        DB::table('qrcode')->where('id',$qr->id)->update(['is_used'=>1,'used_at'=>date('Y-m-d H:i:s')]);
         return 200;
-
     }
 }

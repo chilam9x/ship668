@@ -18,7 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::group(['prefix' => 'users', 'namespace' => 'Api', 'middleware' => VerifyJWTToken::class], function () {
     Route::post('updategeneral', 'APIUserController@updateGeneral');
     Route::post('updatebank', 'APIUserController@updateBank');
@@ -129,8 +128,13 @@ Route::group(['prefix' => 'policy', 'namespace' => 'API'], function () {
 });
 //--------RAYMOND------
 Route::group(['prefix' => 'qrcode', 'namespace' => 'API'], function () {
-    Route::post('check-qrcode-create-new', 'QRCodeController@checkQRCodeCreateNew');
+    Route::group(['prefix' => 'customer'], function() {
+        Route::post('check-qrcode-create-new', 'QRCodeController@checkQRCodeCreateNew');
+    });
 });
 Route::group(['prefix' => 'order', 'namespace' => 'API'], function () {
-    Route::post('create', 'OrderController@create');
+    Route::group(['prefix' => 'customer'], function() {
+        Route::post('create', 'OrderController@create');
+    });
+
 });

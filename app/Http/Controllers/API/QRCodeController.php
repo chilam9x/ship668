@@ -13,10 +13,10 @@ class QRCodeController extends ApiController
     {
         try {
             //kiểm tra qrcode đã tồn tại chưa
-            $qr = QRCode::findQRCode($request->name);
+            $qr = QRCode::findQRCode($request->qrcode);
             if ($qr!=null) {
                 //check qrcode đã được sử dụng chưa
-                $qr2=QRCode::findQRCode_OrderNew($request->name);
+                $qr2=QRCode::findQRCode_OrderNew($request->qrcode);
                 if($qr2==null)
                 {
                     return response()->json(['msg' => 'Bạn đã quét QRcode thành công', 'code' => 200]);

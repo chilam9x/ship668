@@ -81,9 +81,9 @@ class QRCode
             return $res;
         }
         //check qrcode đã được sử dụng chưa
-        public static function findQRCode_OrderNew($name)
+        public static function findQRCode_OrderNew($qrcode)
         {
-            $res = DB::table('qrcode')->where('name', $name)->where('is_used', 1)->first();
+            $res = DB::table('qrcode')->where('name', $qrcode)->where('is_used', 1)->first();
             return $res;
         }
 }

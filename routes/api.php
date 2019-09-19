@@ -128,12 +128,12 @@ Route::group(['prefix' => 'policy', 'namespace' => 'API'], function () {
 });
 //--------RAYMOND------
 Route::group(['prefix' => 'qrcode', 'namespace' => 'API'], function () {
-    Route::group(['prefix' => 'customer', 'namespace' => 'API'], function () {
+    Route::group(['prefix' => 'customer'], function () {
         Route::post('check-qrcode-create-new', 'QRCodeController@checkQRCodeCreateNew');
     });
 });
 Route::group(['prefix' => 'order', 'namespace' => 'API'], function () {
-    Route::group(['prefix' => 'customer', 'namespace' => 'API'], function () {
+    Route::group(['prefix' => 'customer'], function () {
         Route::post('create', 'OrderController@create');
     });
 });

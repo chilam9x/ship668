@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use App\Models\QRCode;
+use App\Models\Order;
+use Illuminate\Http\Request;
 
 class QRCodeController extends ApiController
 {
@@ -14,13 +15,12 @@ class QRCodeController extends ApiController
         try {
             //kiểm tra qrcode đã tồn tại chưa
             $qr = QRCode::findQRCode($request->qrcode);
-            if ($qr!=null) {
+            if ($qr != null) {
                 //check qrcode đã được sử dụng chưa
-                $qr2=QRCode::findQRCode_OrderNew($request->qrcode);
-                if($qr2==null)
-                {
+                $qr2 = QRCode::findQRCode_OrderNew($request->qrcode);
+                if ($qr2 == null) {
                     return response()->json(['msg' => 'Bạn đã quét QRcode thành công', 'code' => 200]);
-                }else{
+                } else {
                     return response()->json(['msg' => 'Qrcode đã được sử dụng', 'code' => 201]);
                 }
             } else {
@@ -30,24 +30,26 @@ class QRCodeController extends ApiController
             return $e;
         }
     }
-    
-    public function OrderTake($data)
+
+    public function takeOrder(Request $request)
     {
         try {
-            //check qrcode co ton tai & status da su dung
-            $qr = QRCode::findQRCode_OrderNew($data->code);
-            if ($qr) //check ton tai
-            {
-                //check qr va don hang
-                $qrcode_order = Order::checkOrderNew($qr->id);
-                if ($qrcode_order) { //check ton tai
-                    //change status order moi->da lay hang
-                    $changeOrderTake = Order::changeStatusOrderTake($qrcode_order->id);
-                    //insert shipper take order
-                    $user = Auth::user();
-                    $insertOrderUser = OrderUser::insertShipperOderTake($qrcode_order->id, $user->id);
+            //kiểm tra qrcode đã tồn tại chưa
+            $qr = QRCode::findQRCode($request->qrcode);
+            dd($qr);
+
+            if ($qr != null) {
+                //check qrcode có phải của đơn hàng mới?
+                $qr2 = QRCode::checkQRCode_OrderNew($request->qrcode);
+                if ($qr2 != null) {
+                    //phân công lấy đơn hàng
+                    $order=QRCode::takeOrder($request->qrcode);
+                    return response()->json(['msg' => 'QRcode ', 'code' => 200]);
+                } else {
+                    return response()->json(['msg' => 'Không phải đơn hàng mới, vui lòng kiểm tra lại', 'code' => 201]);
                 }
-                return 200;
+            } else {
+                return response()->json(['msg' => 'Qrcode không tồn tại', 'code' => 400]);
             }
         } catch (\Exception $e) {
             return $e;

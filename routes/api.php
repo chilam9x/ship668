@@ -131,6 +131,9 @@ Route::group(['prefix' => 'qrcode', 'namespace' => 'API'], function () {
     Route::group(['prefix' => 'customer'], function () {
         Route::post('check-qrcode-create-new', 'QRCodeController@checkQRCodeCreateNew');
     });
+    Route::group(['prefix' => 'shipper'], function () {
+        Route::post('take-order', 'QRCodeController@takeOrder');
+    });
 });
 Route::group(['prefix' => 'order', 'namespace' => 'API'], function () {
     Route::group(['prefix' => 'customer'], function () {

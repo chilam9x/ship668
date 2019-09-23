@@ -714,17 +714,24 @@ class Booking extends Model
     //-----------RAYMOND API---------
     public static function create($data){
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        dd(Auth::user());
         $qrcode_name[0]=QRCode::postCreate(1);
         $qr=QRCode::findQRCode($qrcode_name[0]);
-        $order=DB::table('bookings')->insertGetId([
+        $order_id=DB::table('bookings')->insertGetId([
             'COD'=>$data->COD,
             'uuid'=>$qr->name,
             'qrcode_id'=>$qr->id,
             'created_at'=>date('Y-m-d H:i:s'),
             'status'=>'new',
+            'sender_id'=>Auth::user()->id,
         ]);
+        if ($data->hasFile('image_order')) {
+            $file = $data->image_order;
+            $filename = date('Ymd-His-') . $file->getFilename() . '.' . $file->extension();
+            $filePath = 'img/order/';
+            $movePath = public_path($filePath);
+            $file->move($movePath, $filename);
+            DB::table('bookings')->where('id',$order_id)->update(['image_order'=>$filePath . $filename]);
+        }
         return 200;
-
     }
 }

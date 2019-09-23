@@ -218,7 +218,7 @@ class BookingController extends Controller
                 $query->whereIn('user_id', $shipperIds);
             });
         }
-
+        $booking = $booking->orderBy('id', 'DESC');
         return datatables()->of($booking)
             ->addColumn('shipper_name', function (Booking $booking) {
                 return $booking->shipperSender ? $booking->shipperSender->shipper_name : $booking->shipperRecivcier->shipper_name;
@@ -311,7 +311,7 @@ class BookingController extends Controller
             $booking = $booking->whereIn('current_agency', $scope);*/
             $booking = $booking->whereIn('send_ward_id', $this->getBookingScope());
         }
-        // $booking = $booking->orderBy('id', 'desc')->get();
+        $booking = $booking->orderBy('id', 'desc')->get();
         return datatables()->of($booking)
             ->addColumn('action', function ($b) {
                 $action = [];
@@ -396,7 +396,7 @@ class BookingController extends Controller
         if (Auth::user()->role == 'collaborators') {
             $booking = $booking->whereIn('send_ward_id', $this->getBookingScope());
         }
-        // $booking = $booking->orderBy('id', 'desc')->get();
+        $booking = $booking->orderBy('id', 'desc')->get();
         return datatables()->of($booking)
             /*->addColumn('action', function ($b) {
                 $action = [];
@@ -460,7 +460,7 @@ class BookingController extends Controller
             $booking = $booking->whereIn('first_agency', $scope)->orWhere('last_agency', $scope);
         }
         $result = $scope != null ? $scope->toArray() : [];
-        // $booking = $booking->orderBy('id', 'desc')->get();
+        $booking = $booking->orderBy('id', 'desc')->get();
         return datatables()->of($booking)
             ->addColumn('receiveShipper', function ($b) {
                 if ($b->status != null) {

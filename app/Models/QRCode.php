@@ -1,15 +1,12 @@
 <?php
 
 namespace App\Models;
-use App\Models\BookDelivery;
-use App\Models\Booking;
-use Illuminate\Support\Facades\DB;
-use App\Helpers\NotificationHelper;
+
 use App\Jobs\NotificationJob;
-use App\Models\Notification;
-use App\Models\NotificationUser;
-use Carbon\Carbon;
+use App\Models\BookDelivery;
 use Auth;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class QRCode
 {
@@ -84,7 +81,6 @@ class QRCode
     //kiểm tra qr code có tồn tại không
     public static function findQRCode($qrcode)
     {
-        dd($qrcode);
         $res = DB::table('qrcode')->where('name', $qrcode)->first();
         return $res;
     }
@@ -97,50 +93,88 @@ class QRCode
     //check qrcode có phải của đơn hàng mới?
     public static function checkQRCode_OrderNew($qrcode)
     {
-        $res = DB::table('booking as b')
-        ->join('qrcode as q','q.id','=','b.qrcode_id')
-        ->where('q.name', $qrcode)->where('q.is_used', 1)->where('b.status','new')->first();
+        $res = DB::table('bookings as b')
+            ->join('qrcode as q', 'q.id', '=', 'b.qrcode_id')
+            ->where('q.name', $qrcode)->where('q.is_used', 1)->where('b.status', 'new')->first();
+        return $res;
+    }
+    //check qrcode có phải của đơn hàng đã lấy?
+    public static function checkQRCode_OrderTaking($qrcode)
+    {
+        $res = DB::table('bookings as b')
+            ->join('qrcode as q', 'q.id', '=', 'b.qrcode_id')
+            ->where('q.name', $qrcode)->where('q.is_used', 1)->where('b.status', 'taking')->first();
         return $res;
     }
     //phân công lấy đơn hàng
-    public static function takeOrder($qrcode)
-    { 
+    public static function receiveOrder($qrcode)
+    {
         $shipper_id = Auth::user()->id;
-
-        $booking=DB::table('bookings')->where('uuid',$qrcode)->first();
-
-        $booking = Booking::find($id);
-        $check = BookDelivery::where('book_id', $id)->first();
+        $booking = DB::table('bookings')->where('uuid', $qrcode)->first();
+        $booking = Booking::find($booking->id);
+        $check = BookDelivery::where('book_id', $booking->id)->first();
         if ($check == null) {
             DB::beginTransaction();
             try {
-                    BookDelivery::insert([
-                        'user_id' => $shipper_id,
-                        'send_address' => $booking->send_full_address,
-                        'receive_address' => $booking->receive_full_address,
-                        'book_id' => $id,
-                        'category' => 'receive',
-                        'sending_active' => 1,
-                        'created_at' => Carbon::now(),
-                        'updated_at' => Carbon::now(),
-                    ]);
+                BookDelivery::insert([
+                    'user_id' => $shipper_id,
+                    'send_address' => $booking->send_full_address,
+                    'receive_address' => $booking->receive_full_address,
+                    'book_id' => $booking->id,
+                    'category' => 'receive',
+                    'sending_active' => 1,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
                 $booking->status = 'taking';
                 $booking->save();
                 DB::commit();
-
-                $bookingDelivery = BookDelivery::where('book_id', $id)->where('user_id', $shipper_id)->where('sending_active', 1)->first();
+                $bookingDelivery = BookDelivery::where('book_id', $booking->id)->where('user_id', $shipper_id)->where('sending_active', 1)->first();
                 //gửi thông báo tới shipper khi được phân công
+                // dd($booking);
                 $bookingTmp = $booking->toArray();
                 $bookingTmp['shipper_id'] = $shipper_id;
                 $bookingTmp['book_delivery_id'] = $bookingDelivery->id;
+
                 // echo '<pre>';print_r($bookingTmp);die;
                 // $notificationHelper = new NotificationHelper();
                 // $notificationHelper->notificationBooking($bookingTmp, 'shipper', ' vừa được phân công cho bạn', 'push_order_assign');
-             //   dispatch(new NotificationJob($bookingTmp, 'shipper', ' vừa được phân công cho bạn', 'push_order_assign'));
-                
+                dispatch(new NotificationJob($bookingTmp, 'shipper', ' vừa được phân công cho bạn', 'push_order_assign'));
+                return 200;
             } catch (\Exception $e) {
                 DB::rollBack();
                 return $e;
             }
+        }
+    }
+    //phân công giao đơn hàng
+    public static function senderOrder($qrcode)
+    {
+        $shipper_id = Auth::user()->id;
+        $booking = DB::table('bookings')->where('uuid', $qrcode)->first();
+        $booking = Booking::find($booking->id);
+        $check = BookDelivery::where('book_id', $booking->id)->where('category', 'send')->first();
+        if ($check == null) {
+            DB::beginTransaction();
+            try {
+                $booking->update(['status' => 'sending']);
+                BookDelivery::insert([
+                    'user_id' => $shipper_id,
+                    'send_address' => $booking->send_full_address,
+                    'receive_address' => $booking->receive_full_address,
+                    'book_id' => $booking->id,
+                    'category' => 'send',
+                    'sending_active' => 1,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ]);
+                BookDelivery::where('book_id', $booking->id)->where('category', '!=', 'send')->update(['sending_active' => 0]);
+                DB::commit();
+                return 200;
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $e;
+            }
+        }
     }
 }

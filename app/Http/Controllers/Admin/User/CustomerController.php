@@ -122,7 +122,6 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-        dd($request);
         /*$validator = $this->createdValidate($request, 'customer');
         if (!empty($validator->errors()->first())) {
             return redirect('admin/customers/create')

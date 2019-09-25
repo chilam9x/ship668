@@ -724,6 +724,9 @@ class Booking extends Model
             'status'=>'new',
             'sender_id'=>Auth::user()->id,
         ]);
+        DB::table('qrcode')->where('id',$qr->id)->update([
+            'is_used'=>1,
+            'used_at'=>date('Y-m-d H:i:s')]);
         if ($data->hasFile('image_order')) {
             $file = $data->image_order;
             $filename = date('Ymd-His-') . $file->getFilename() . '.' . $file->extension();

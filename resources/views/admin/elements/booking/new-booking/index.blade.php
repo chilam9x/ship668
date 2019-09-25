@@ -76,7 +76,7 @@
                         'icon' => 'fa fa-table',
                         'class' => 'portlet box green',
                 ],
-                'url' => url("/ajax/new_booking"),
+                'url' => url("ajax/new_booking"),
                 'columns' => [
                         ['data' => 'image_order', 'title' => 'Ảnh đơn hàng'],
                         ['data' => 'uuid', 'title' => 'QR Code'],

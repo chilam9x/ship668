@@ -714,8 +714,7 @@ class Booking extends Model
     //-----------RAYMOND API---------
     public static function create($data){
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $qrcode_name[0]=QRCode::postCreate(1);
-        $qr=QRCode::findQRCode($qrcode_name[0]);
+        $qr=QRCode::findQRCode($data->qrcode);
         $order_id=DB::table('bookings')->insertGetId([
             'COD'=>$data->COD,
             'uuid'=>$qr->name,

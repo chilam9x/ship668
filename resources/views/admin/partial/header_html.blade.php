@@ -6,7 +6,7 @@
 <meta content="Preview page of Metronic Admin Theme #1 for statistics, charts, recent events and reports" name="description" />
 <meta content="" name="author" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
 <link href="{{asset('/assets/global/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">

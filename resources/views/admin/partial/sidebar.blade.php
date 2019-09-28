@@ -75,11 +75,11 @@
         </ul>
 
     </li>
-    <li class="nav-item start @if(isset($active)&& $active == 'collaborators' || $active == 'shipper' || $active == 'agency') active open @endif">
+    <li class="nav-item start @if(isset($active)&& $active == 'collaborators' || $active == 'shipper' || $active == 'agency' || $active == 'warehouse') active open @endif">
         <a href="javascript:;" class="nav-link nav-toggle">
             <i class="fa fa-user" aria-hidden="true"></i>
             <span class="title">Quản lý thành viên</span>
-            <span class="arrow @if(isset($active)&& $active == 'collaborators' || $active == 'shipper') open @endif"></span>
+            <span class="arrow @if(isset($active)&& $active == 'collaborators' || $active == 'shipper' || $active == 'warehouse') open @endif"></span>
             @if(isset($active)&& $active == 'user'|| $active == 'shipper')<span class="selected"></span>
             @endif
         </a>
@@ -104,8 +104,9 @@
                     <span class="title">Shipper</span>
                 </a>
             </li>
-            <li class="nav-item   @if($active == 'shipper_register') active @endif">
-                <a href="{{ url('/admin/register/shippers') }}" class="nav-link">
+            <li class="nav-item   @if($active == 'warehouse') active @endif">
+                <a href="{{ url('/admin/warehouse') }}" class="nav-link">
+                    {{--<i class="fa fa-user" aria-hidden="true"></i>--}}
                     <span class="title">Quản lý kho</span>
                 </a>
             </li>

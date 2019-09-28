@@ -68,9 +68,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::get('shippers/refresh-book/{shipperId}', 'User\ShipperController@refreshBook');
     Route::any('shippers/manage-scope/{shipperId}', 'User\ShipperController@manageScope');
     Route::resource('shippers', 'User\ShipperController');
+
     Route::resource('collaborators', 'User\CollaboratorController');
+
     Route::get('agencies/liabilities/{id}', 'User\AgencyController@getLiabilities');
     Route::resource('agencies', 'User\AgencyController');
+
     Route::get('customers/owe/{id}', 'User\CustomerController@getOwe');
     Route::get('customers/paidAll/{id}', 'User\CustomerController@paidAll');
     Route::get('customers/show_address/{id}', 'User\CustomerController@getDelivery');
@@ -79,6 +82,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
     Route::get('customers/list_booking', 'User\CustomerController@exportBooking');
     Route::get('customers/withdrawal/{customerId}', 'User\CustomerController@withDrawal');
 
+    Route::resource('warehouse', 'User\WareHouseController');
+    Route::get('warehouse/list_booking', 'User\WareHouseController@exportBooking');
+    Route::get('warehouse/paid', 'User\WareHouseController@paidBooking');
+    Route::get('warehouse/maps', 'User\WareHouseController@maps');
+    Route::get('warehouse/detail_total_cod/{id}', 'User\WareHouseController@getDetailTotalCOD');
+    Route::get('warehouse/refresh-book/{warehouseId}', 'User\WareHouseController@refreshBook');
+    Route::any('warehouse/manage-scope/{warehouseId}', 'User\WareHouseController@manageScope');
     //COD
 //    Route::get('cod', 'COD\CODController@getCOD');
     Route::get('COD_details/{id}', 'COD\CODController@getCODDetails');
@@ -193,6 +203,7 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function () {
     //user
     Route::get('collaborators', 'UserController@getUser');
     Route::get('shipper', 'UserController@getShipper');
+    Route::get('warehouse', 'UserController@getWareHouse');
     Route::get('agency', 'UserController@getAgency');
     Route::get('payment_agency', 'SettingController@paymentAgency');
     Route::get('liabilities/{id}', 'UserController@getLiability');

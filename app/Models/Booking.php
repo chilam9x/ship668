@@ -736,6 +736,7 @@ class Booking extends Model
                 'send_province_id'=>$user->province_id,
                 'send_district_id'=>$user->district_id,
                 'send_ward_id'=>$user->ward_id,
+                'send_ward_id'=>$user->ward_id,
                 'created_at' => date('Y-m-d H:i:s'),
                 'status' => 'new',
             ]);

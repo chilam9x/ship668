@@ -226,6 +226,14 @@ class OrderController extends ApiController {
             $book->COD = $req->COD;
             $book->other_note = $req->other_note;
             $book->status = 'new';
+            if ($req->hasFile('image_order')) {
+                $file = $req->image_order;
+                $filename = date('Ymd-His-') . $file->getFilename() . '.' . $file->extension();
+                $filePath = 'img/order/';
+                $movePath = public_path($filePath);
+                $file->move($movePath, $filename);
+                $booking->image_order = $filePath . $filename;
+            }
             $book->transport_type_services = $req->transport_type_services;
             $book->transport_type_service1 = (isset($req->transport_type_service1) && $req->transport_type_service1 == 1) ? 1 : 0;
             $book->transport_type_service2 = (isset($req->transport_type_service2) && $req->transport_type_service2 == 1) ? 1 : 0;
@@ -239,11 +247,17 @@ class OrderController extends ApiController {
             $book->save();
             $uuid = Booking::find($book->id);
             $uuid->uuid = str_random(5) . $uuid->id;
+            //tạo qrcode
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $qrcode_id=DB::table('qrcode')->insertGetId(
+                ['name' => $uuid->uuid, 'is_used' => 1,'created_at'=>date('Y-m-d H:i:s'),'used_at'=>date('Y-m-d H:i:s')]
+            );
+            $uuid->qrcode_id=$qrcode_id;
             $uuid->save();
             $this->setSendOrReceiveAddress($book, 'send');
             $this->setSendOrReceiveAddress($book, 'receive');
             DB::commit();
-            
+
             // Thông báo tới admin có đơn hàng mới
             $bookingTmp = $book->toArray();
             $bookingTmp['uuid'] = $uuid->uuid;
@@ -1918,7 +1932,7 @@ class OrderController extends ApiController {
             {
                 return response()->json(['msg' => 'Bạn đã tạo đơn hàng thành công', 'code' => 200]);
             }else{
-                return response()->json(['msg' => 'Vui lòng kiểm tra lại địa chỉ cá nhân', 'code' => 200]);
+                return response()->json(['msg' => 'Vui lòng kiểm tra lại địa chỉ cá nhân', 'code' => 201]);
             }
         } catch (\Exception $e) {
             return $e;

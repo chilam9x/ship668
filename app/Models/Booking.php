@@ -724,6 +724,7 @@ class Booking extends Model
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $user = $data->user();
+        dd($user);
         if (($user->province_id == 0 || $user->province_id == null) && ($user->district_id == 0 || $user->district_id == null) && ($user->ward_id == 0 || $user->ward_id == null)) {
             return 201;
         }else{
@@ -736,7 +737,10 @@ class Booking extends Model
                 'send_province_id'=>$user->province_id,
                 'send_district_id'=>$user->district_id,
                 'send_ward_id'=>$user->ward_id,
-                'send_ward_id'=>$user->ward_id,
+                'send_homenumber'=>$user->home_number,
+                'send_full_address'=>$user->home_number,
+                'send_name'=>$user->name,
+                'send_phone'=>$user->phone_number,
                 'created_at' => date('Y-m-d H:i:s'),
                 'status' => 'new',
             ]);

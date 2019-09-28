@@ -36,9 +36,6 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon2">Tỉnh / TP</span>
-                                    {{ Form::select('province_id', \App\Models\Province::getProvinceOption(1) , old('province_id', @$user->province_id),
-                                 ['class' => 'form-control', 'style' => 'min-width: 180px', 'id'=>'province', 'onchange'=>'loadDistrict()']) }}
                                     <span class="input-group-addon" id="sizing-addon2">Quận / Huyện</span>
                                     <select style="min-width: 180px" id="district" onchange="loadWard(this.value)" name="district_id"
                                             class="form-control">
@@ -178,34 +175,6 @@
             'wrapAround': true,
             'showImageNumberLabel': true,
         });
-        loadDistrict();
-
-        function loadDistrict() {
-            var province = $('#province').val();
-            $("#district option[value!='-1']").remove();
-            $.ajax({
-                type: "GET",
-                url: '{{url('/ajax/get_district/')}}/' + province
-            }).done(function (msg) {
-                var i;
-                for (i = 0; i < msg.length; i++) {
-                    if (msg[i]['id'] == '{{@$user->district_id}}' || msg[i]['id'] == '{{old('district_id')}}') {
-                        $('select[name="district_id"]').append('<option value="' + msg[i]['id'] + '" selected>' + msg[i]['name'] + '</option>')
-                    } else {
-                        $('select[name="district_id"]').append('<option value="' + msg[i]['id'] + '">' + msg[i]['name'] + '</option>')
-                    }
-                }
-                if (typeof $('select[name=district_id]').val() !== 'undefined') {
-                    loadWard($('select[name=district_id]').val());
-                } else if ("{{old('district_id')}}") {
-                    loadWard('{{old('district_id')}}');
-                } else {
-                    loadWard(msg[0]['id']);
-
-                }
-            });
-        }
-
         function loadWard(id) {
             $("#ward option[value!='-1']").remove();
             $.ajax({
@@ -289,6 +258,29 @@
         }
 
         $(document).ready(function(){
+            var province = 50;
+            $("#district option[value!='-1']").remove();
+            $.ajax({
+                type: "GET",
+                url: "{{url('/ajax/get_district/')}}/" + province
+            }).done(function (msg) {
+                var i;
+                for (i = 0; i < msg.length; i++) {
+                    if (msg[i]['id'] == '{{@$user->district_id}}' || msg[i]['id'] == '{{old('district_id')}}') {
+                        $('select[name="district_id"]').append('<option value="' + msg[i]['id'] + '" selected>' + msg[i]['name'] + '</option>')
+                    } else {
+                        $('select[name="district_id"]').append('<option value="' + msg[i]['id'] + '">' + msg[i]['name'] + '</option>')
+                    }
+                }
+                if (typeof $('select[name=district_id]').val() !== 'undefined') {
+                    loadWard($('select[name=district_id]').val());
+                } else if ("{{old('district_id')}}") {
+                    loadWard('{{old('district_id')}}');
+                } else {
+                    loadWard(msg[0]['id']);
+
+                }
+            });
             $("#quick-assign").click(function(){
                 $("#type-assign").val('no_assign');
                 loadListBoook('no_assign');

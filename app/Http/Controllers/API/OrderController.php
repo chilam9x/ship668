@@ -1918,7 +1918,7 @@ class OrderController extends ApiController {
             {
                 return response()->json(['msg' => 'Bạn đã tạo đơn hàng thành công', 'code' => 200]);
             }else{
-                return response()->json(['msg' => 'Vui lòng kiểm tra lại', 'code' => 200]);
+                return response()->json(['msg' => 'Vui lòng kiểm tra lại địa chỉ cá nhân', 'code' => 200]);
             }
         } catch (\Exception $e) {
             return $e;

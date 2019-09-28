@@ -12,7 +12,7 @@
     <div class="row">
         @include('admin.partial.log.err_log',['name' => 'delete'])
         @include('admin.partial.log.success_log',['name' => 'success'])
-{{--        @if(Auth::user()->role == 'collaborators')--}}
+        {{--@if(Auth::user()->role == 'collaborators')--}}
             <div class="well" style="padding-left: 0px">
                 <a href="{!! url('admin/shippers/create') !!}" class="btn btn-primary"> <i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
                 <a href="{!! url('admin/shippers/maps') !!}" class="btn btn-info"> <i class="fa fa-location-arrow" aria-hidden="true"></i> Xem trên bản đồ</a>

@@ -104,6 +104,11 @@
                     <span class="title">Shipper</span>
                 </a>
             </li>
+            <li class="nav-item   @if($active == 'shipper_register') active @endif">
+                <a href="{{ url('/admin/register/shippers') }}" class="nav-link">
+                    <span class="title">Quản lý kho</span>
+                </a>
+            </li>
         </ul>
 
     </li>

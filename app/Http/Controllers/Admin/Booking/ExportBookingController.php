@@ -98,6 +98,7 @@ class ExportBookingController extends Controller
     public function exportBookingAdvance(Request $req)
     {
         $file_name = 'Don-hang-moi';
+        $req->province_id=50;
         $booking = Booking::whereIn('status', $req->status)->whereIn('sub_status', $req->sub_status)->whereDate('updated_at', '>=', $req->date_from)->whereDate('updated_at', '<=', $req->date_to);
         if (Auth::user()->role == 'collaborators') {
             $booking = $booking->whereIn('send_ward_id', $this->getBookingScope());

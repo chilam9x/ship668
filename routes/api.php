@@ -129,12 +129,19 @@ Route::group(['prefix' => 'policy', 'namespace' => 'API'], function () {
 //--------RAYMOND------
 Route::group(['prefix' => 'qrcode', 'namespace' => 'API'], function () {
     Route::group(['prefix' => 'customer'], function() {
-        Route::post('check-qrcode-create-new', 'QRCodeController@checkQRCodeCreateNew');
+        Route::post('check-new', 'QRCodeController@checkNew');//1 check qrcode tạo đơn hàng
+    });
+    Route::group(['prefix' => 'shipper'], function() {
+        Route::post('receive', 'QRCodeController@receiveOrder');//2 lấy đơn
+        Route::post('sender', 'QRCodeController@senderOrder');//4 nhận đơn giao
+    });
+    Route::group(['prefix' => 'warehouse'], function() {
+        Route::post('into', 'QRCodeController@intoWarehouse');//3 nhập đơn mới vào kho
+        Route::post('fail', 'QRCodeController@failWarehouse');//5 nhập đơn hủy vào kho
     });
 });
 Route::group(['prefix' => 'order', 'namespace' => 'API'], function () {
     Route::group(['prefix' => 'customer'], function() {
-        Route::post('create', 'OrderController@create');
+        Route::post('create', 'OrderController@create');//1.1 nhập COD,image_order,qrcode
     });
-
 });

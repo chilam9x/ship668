@@ -106,6 +106,22 @@ class QRCode
             ->where('q.name', $qrcode)->where('q.is_used', 1)->where('b.status', 'taking')->first();
         return $res;
     }
+    //check qrcode có phải của đơn hàng lấy đi giao?
+    public static function checkQRCode_OrderSending($qrcode)
+    {
+        $res = DB::table('bookings as b')
+            ->join('qrcode as q', 'q.id', '=', 'b.qrcode_id')
+            ->where('q.name', $qrcode)->where('q.is_used', 1)->where('b.status', 'sending')->first();
+        return $res;
+    }
+    //check qrcode đơn hàng mới đã nhập kho?
+    public static function checkQRCode_OrderTaking_intoWarehouse($qrcode)
+    {
+        $res = DB::table('bookings as b')
+            ->join('qrcode as q', 'q.id', '=', 'b.qrcode_id')
+            ->where('q.name', $qrcode)->where('q.is_used', 1)->where('b.status', 'taking')->where('b.warehouse_into_id', '!=', null)->first();
+        return $res;
+    }
     //phân công lấy đơn hàng
     public static function receiveOrder($qrcode)
     {
@@ -177,4 +193,29 @@ class QRCode
             }
         }
     }
+    //nhập đơn mới vào kho
+    public static function intoWarehouse($qrcode)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $warehouse_id = Auth::user()->id;
+        $booking = DB::table('bookings')->where('uuid', $qrcode)->first();
+        $booking = Booking::where($booking->id)->update([
+            'warehouse_into_id' => $warehouse_id,
+            'into_at' => date('Y-m-d H:i:s'),
+        ]);
+        return 200;
+    }
+    //nhập đơn huy vào kho
+    public static function failWarehouse($qrcode)
+    {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $warehouse_id = Auth::user()->id;
+        $booking = DB::table('bookings')->where('uuid', $qrcode)->first();
+        $booking = Booking::where($booking->id)->update([
+            'warehouse_fail_id' => $warehouse_id,
+            'fail_at' => date('Y-m-d H:i:s'),
+        ]);
+        return 200;
+    }
+
 }

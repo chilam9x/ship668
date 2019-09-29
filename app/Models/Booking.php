@@ -724,7 +724,6 @@ class Booking extends Model
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $user = $data->user();
-        dd($user);
         if (($user->province_id == 0 || $user->province_id == null) && ($user->district_id == 0 || $user->district_id == null) && ($user->ward_id == 0 || $user->ward_id == null)) {
             return 201;
         }else{

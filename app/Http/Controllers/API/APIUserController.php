@@ -2,37 +2,27 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\GetLocationShipper;
+use App\Http\Controllers\ApiController;
 use App\Models\Agency;
+use App\Models\DeliveryAddress;
+use App\Models\Device;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\SendAndReceiveAddress;
-use App\Models\ShipperRevenue;
-use App\Models\Ward;
-use function array_merge;
-use function bcrypt;
-use Carbon\Carbon;
-use function dd;
-use function GuzzleHttp\Promise\queue;
-use Illuminate\Http\Request;
-use App\Http\Controllers\ApiController;
-use App\Models\User;
 use App\Models\Shipper;
-use App\Models\Device;
-use App\Models\DeliveryAddress;
-use function implode;
-use function is;
-use JWTAuthException;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use DB, Hash, JWTAuth, So;
-use Socialite;
-use Facebook\Facebook;
-use Facebook\Exceptions\FacebookResponseException;
-use GuzzleHttp\Psr7;
-use GuzzleHttp\Exception\ClientException;
-use function url;
 use App\Models\ShipperLocation;
-use App\Events\GetLocationShipper;
+use App\Models\User;
+use Facebook\Exceptions\FacebookResponseException;
+use Facebook\Facebook;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Psr7;
+use Hash;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use JWTAuth;
+use Socialite;
 
 class APIUserController extends ApiController
 {
@@ -48,7 +38,7 @@ class APIUserController extends ApiController
     {
         $check = false;
         $messages = [
-            'account.required' => 'Vui lòng nhập tài khoản đăng nhập'
+            'account.required' => 'Vui lòng nhập tài khoản đăng nhập',
         ];
         if (isset(request()->deviceToken) || isset(request()->deviceType)) {
             request()->device_token = request()->deviceToken;
@@ -56,25 +46,25 @@ class APIUserController extends ApiController
         }
         $roles = [
             'account' => 'required',
-//            'password' => 'required|min:5',
+            //'password' => 'required|min:5',
             'device_token' => 'string',
-            'device_type' => 'string|in:ios,android'
+            'device_type' => 'string|in:ios,android',
         ];
         $validator = Validator::make($req->all(), $roles, $messages);
 
         if ($validator->fails()) {
             return response([
                 'msg' => $validator->errors()->first(),
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 422);
         }
-        
+
         $user = User::where('username', $req->account)
-                    ->orWhere('phone_number', $req->account)
-                    ->orWhere('email', $req->account)
-                    ->where('delete_status', 0)
-                    ->with('provinces', 'districts', 'wards')
-                    ->first();
+            ->orWhere('phone_number', $req->account)
+            ->orWhere('email', $req->account)
+            ->where('delete_status', 0)
+            ->with('provinces', 'districts', 'wards')
+            ->first();
         // $user = User::where(function($query) use ($req){
         //     $query->where('username', $req->account);
         //     $query->orWhere('phone_number', $req->account);
@@ -88,7 +78,7 @@ class APIUserController extends ApiController
 
             $createUser = [
                 'phone_number' => $req->account,
-    //                'password' => bcrypt($req->password)
+                //                'password' => bcrypt($req->password)
             ];
             if (isset($req->password_code)) {
                 $createUser['password_code'] = $req->password_code;
@@ -97,7 +87,6 @@ class APIUserController extends ApiController
             $user = User::create($createUser);
         }
 
-        
         if (isset($req->password_code)) {
             if (empty($user->password_code)) {
                 $user = User::find($user->id);
@@ -118,7 +107,7 @@ class APIUserController extends ApiController
             $deviceInfo = [
                 'user_id' => $user->id,
                 'device_token' => $req->device_token,
-                'device_type' => $req->device_type
+                'device_type' => $req->device_type,
             ];
             $userDevice = Device::where('device_token', $req->device_token)
                 ->where('device_type', $req->device_type)
@@ -131,14 +120,14 @@ class APIUserController extends ApiController
             }
         }
 
-        $tokenGenerateJwt = $user->generateJwt();//->đây là code tạo token dựa trên
+        $tokenGenerateJwt = $user->generateJwt(); //->đây là code tạo token dựa trên
         $user->toArray();
         $data = [
             'id' => $user['id'],
             'token' => $tokenGenerateJwt,
             'phone_number' => $user['phone_number'],
-            'created_at' => (string)$user['created_at'],
-            'updated_at' => (string)$user['updated_at'],
+            'created_at' => (string) $user['created_at'],
+            'updated_at' => (string) $user['updated_at'],
         ];
         unset($user['id'], $user['phone_number'], $user['created_at'], $user['updated_at']);
         if ($check) {
@@ -167,7 +156,7 @@ class APIUserController extends ApiController
                     'province_id' => $user->province_id,
                     'district_id' => $user->district_id,
                     'ward_id' => $user->ward_id,
-                    'home_number' => $user->home_number
+                    'home_number' => $user->home_number,
                 ];
             } else {
                 $child['address'] = null;
@@ -197,26 +186,25 @@ class APIUserController extends ApiController
             request()->device_type = request()->deviceType;
         }
         $messages = [
-            'required' => ':Please enter'
+            'required' => ':Please enter',
         ];
         $validator = Validator::make($req->all(), [
             'account' => 'required',
             'password' => 'required|min:5',
             'device_token' => 'string',
-            'device_type' => 'string|in:ios,android'
+            'device_type' => 'string|in:ios,android',
         ], $messages);
 
         if ($validator->fails()) {
             return response([
                 'msg' => $validator->errors()->first(),
-                'errors' => $validator->errors()
+                'errors' => $validator->errors(),
             ], 422);
         }
-        $user = User::where('uuid', $req->account)->where('delete_status', 0)->with('provinces', 'districts', 'wards')->first();
-
+        $user = User::where('uuid', $req->account)->where('delete_status', 0)->where('role','shipper')->with('provinces', 'districts', 'wards')->first();
         if (empty($user)) {
             return response([
-                'msg' => 'Account does not exist'
+                'msg' => 'Account does not exist',
             ], 404);
         }
 
@@ -224,7 +212,7 @@ class APIUserController extends ApiController
             $deviceInfo = [
                 'user_id' => $user->id,
                 'device_token' => $req->device_token,
-                'device_type' => $req->device_type
+                'device_type' => $req->device_type,
             ];
             $userDevice = Device::where('device_token', $req->device_token)
                 ->where('device_type', $req->device_type)
@@ -241,14 +229,14 @@ class APIUserController extends ApiController
             return response()->json(['code_token' => 0, 'status' => '404', 'msg' => 'wrong password', 'datatype' => 1, 'data' => []], 401);
         }
 
-        $tokenGenerateJwt = $user->generateJwt();//->đây là code tạo token dựa trên
+        $tokenGenerateJwt = $user->generateJwt(); //->đây là code tạo token dựa trên
         $user->first();
         $data = [
             'id' => $user->id,
             'token' => $tokenGenerateJwt,
             'phone_number' => $user->phone_number,
-            'created_at' => (string)$user->created_at,
-            'updated_at' => (string)$user->updated_at,
+            'created_at' => (string) $user->created_at,
+            'updated_at' => (string) $user->updated_at,
         ];
         $agency = @Shipper::where('user_id', $user->id)->first();
         if ($check) {
@@ -307,7 +295,7 @@ class APIUserController extends ApiController
                     'province_id' => $user->province_id,
                     'district_id' => $user->district_id,
                     'ward_id' => $user->ward_id,
-                    'home_number' => $user->home_number
+                    'home_number' => $user->home_number,
                 ];
             } else {
                 $child['address'] = null;
@@ -326,7 +314,142 @@ class APIUserController extends ApiController
         }
         return $this->apiOk(array_merge($data, $profile));
     }
+    public function loginWarehouse(Request $req)
+    {
+        $check = false;
+        if (isset(request()->deviceToken) || isset(request()->deviceType)) {
+            request()->device_token = request()->deviceToken;
+            request()->device_type = request()->deviceType;
+        }
+        $messages = [
+            'required' => ':Please enter',
+        ];
+        $validator = Validator::make($req->all(), [
+            'account' => 'required',
+            'password' => 'required|min:5',
+            'device_token' => 'string',
+            'device_type' => 'string|in:ios,android',
+        ], $messages);
 
+        if ($validator->fails()) {
+            return response([
+                'msg' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+        $user = User::where('uuid', $req->account)->where('delete_status', 0)->where('role','warehouse')->with('provinces', 'districts', 'wards')->first();
+        if (empty($user)) {
+            return response([
+                'msg' => 'Account does not exist',
+            ], 404);
+        }
+
+        if (!empty($req->device_token) && !empty($req->device_type)) {
+            $deviceInfo = [
+                'user_id' => $user->id,
+                'device_token' => $req->device_token,
+                'device_type' => $req->device_type,
+            ];
+            $userDevice = Device::where('device_token', $req->device_token)
+                ->where('device_type', $req->device_type)
+                ->first();
+
+            if (!$userDevice) {
+                $userDevice = Device::create($deviceInfo);
+            } else {
+                $userDevice->update($deviceInfo);
+            }
+        }
+
+        if (!$token = JWTAuth::attempt(['uuid' => $req->account, 'password' => $req->password])) {
+            return response()->json(['code_token' => 0, 'status' => '404', 'msg' => 'wrong password', 'datatype' => 1, 'data' => []], 401);
+        }
+
+        $tokenGenerateJwt = $user->generateJwt(); //->đây là code tạo token dựa trên
+        $user->first();
+        $data = [
+            'id' => $user->id,
+            'token' => $tokenGenerateJwt,
+            'phone_number' => $user->phone_number,
+            'created_at' => (string) $user->created_at,
+            'updated_at' => (string) $user->updated_at,
+        ];
+        $agency = @Shipper::where('user_id', $user->id)->first();
+        if ($check) {
+            $profile = ['profile' => null];
+        } else {
+            $child = [];
+            $child['uuid'] = $user->uuid;
+            $child['avatar'] = $user->avatar != null ? url($user->avatar) : null;
+            $child['username'] = $user->username;
+            $child['birth_day'] = $user->birth_day;
+            $child['name'] = $user->name;
+            $child['email'] = $user->email;
+            $child['id_number'] = $user->id_number;
+            $child['role'] = $user->role;
+            $child['status'] = $user->status;
+            $child['fb_id'] = $user->fb_id;
+            $child['gg_id'] = $user->gg_id;
+            $child['total_COD'] = $user->total_COD;
+            $child['delete_status'] = $user->delete_status;
+            $scope = Agency::where('id', $agency->agency_id)->with('managementScope')->first();
+            $child['hot_line'] = $scope->phone;
+            if (!empty($scope->managementScope->pluck('district_id'))) {
+                $district = $agency != null ? District::whereIn('id', $scope->managementScope->pluck('district_id'))->with('province')->get() : [];
+                $shipper_scope = [];
+                foreach ($district as $d) {
+                    $shipper_scope[] = $d->name . ' - ' . $d->province->name;
+                }
+                if (!empty($shipper_scope)) {
+                    $child['scope'] = implode(', ', $shipper_scope);
+                }
+            }
+            $revenue = 0;
+            if ($user->revenues != null) {
+                $revenue = ($user->revenues->total_price - $user->revenues->price_paid) + ($user->revenues->total_COD - $user->revenues->COD_paid);
+            }
+            $child['revenue'] = $revenue;
+            $full_address = '';
+            if ($user->home_number != null) {
+                $full_address .= $user->home_number . ', ';
+            }
+            if ($user->ward_id != null) {
+                $full_address .= $user->wards->name . ', ';
+            }
+            if ($user->district_id != null) {
+                $full_address .= $user->districts->name . ', ';
+            }
+            if ($user->province_id != null) {
+                $full_address .= $user->provinces->name;
+            }
+            if ($user->avatar != null) {
+                $user->avatar = url($user->avatar);
+            }
+            if ($full_address != '') {
+                $child['address'] = [
+                    'full_address' => $full_address,
+                    'province_id' => $user->province_id,
+                    'district_id' => $user->district_id,
+                    'ward_id' => $user->ward_id,
+                    'home_number' => $user->home_number,
+                ];
+            } else {
+                $child['address'] = null;
+            }
+            if ($user->bank_account_number != null) {
+                $child['bank_info'] = [
+                    'account' => $user->bank_account,
+                    'account_number' => $user->bank_account_number,
+                    'name' => $user->bank_name,
+                    'branch' => $user->bank_branch,
+                ];
+            } else {
+                $child['bank_info'] = null;
+            }
+            $profile = ['profile' => $child];
+        }
+        return $this->apiOk(array_merge($data, $profile));
+    }
     public function loginfb(Request $req, Facebook $fb)
     {
 
@@ -334,7 +457,7 @@ class APIUserController extends ApiController
             'phone' => 'required',
             'accessToken' => 'required|string',
             'device_token' => 'required|string',
-            'device_type' => 'required|string|in:ios,android'
+            'device_type' => 'required|string|in:ios,android',
         ]);
 
         if ($validator->fails()) {
@@ -393,7 +516,7 @@ class APIUserController extends ApiController
         } else {
             if (empty($user->phone_number)) {
                 $user->update([
-                    'phone_number' => $req->phone
+                    'phone_number' => $req->phone,
                 ]);
             }
             $user->update([
@@ -404,7 +527,7 @@ class APIUserController extends ApiController
         $deviceInfo = [
             'user_id' => $user->id,
             'device_token' => $req->device_token,
-            'device_type' => $req->device_type
+            'device_type' => $req->device_type,
         ];
 
         $userDevice = Device::where('device_token', $req->device_token)
@@ -427,7 +550,7 @@ class APIUserController extends ApiController
         $validator = Validator::make($req->all(), [
             'accessToken' => 'required|string',
             'device_token' => 'required|string',
-            'device_type' => 'required|string|in:ios,android'
+            'device_type' => 'required|string|in:ios,android',
         ]);
 
         if ($validator->fails()) {
@@ -483,7 +606,7 @@ class APIUserController extends ApiController
         $deviceInfo = [
             'user_id' => $user->id,
             'device_token' => $req->device_token,
-            'device_type' => $req->device_type
+            'device_type' => $req->device_type,
         ];
 
         $userDevice = Device::where('device_token', $req->device_token)
@@ -549,7 +672,7 @@ class APIUserController extends ApiController
                 'province_id' => $data->province_id,
                 'district_id' => $data->district_id,
                 'ward_id' => $data->ward_id,
-                'home_number' => $data->home_number
+                'home_number' => $data->home_number,
             ];
 
         } else {
@@ -575,7 +698,7 @@ class APIUserController extends ApiController
     public function otp(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'phone' => 'required|integer'
+            'phone' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
@@ -590,7 +713,7 @@ class APIUserController extends ApiController
         $validator = Validator::make($req->all(), [
             'phone' => 'required|integer',
             'password' => 'required|min:5',
-            'password-cf' => 'required|same:password'
+            'password-cf' => 'required|same:password',
         ]);
         if ($validator->fails()) {
             return $this->apiError($validator->errors()->first());
@@ -598,7 +721,7 @@ class APIUserController extends ApiController
         $user = User::where('phone_number', $req->phone)->first();
         if (empty($user)) {
             return response([
-                'msg' => 'Account does not exist'
+                'msg' => 'Account does not exist',
             ], 404);
         } else {
             $user->password = bcrypt($req->password);
@@ -665,7 +788,7 @@ class APIUserController extends ApiController
         $check = DeliveryAddress::where('user_id', $req['user_id'])->where('province_id', $req->province_id)->where('district_id', $req->district_id)
             ->where('ward_id', $req->ward_id)->where('home_number', $req->home_number)->first();
         $data = DeliveryAddress::where([]);
-        if (!empty((array)$check)) {
+        if (!empty((array) $check)) {
             if (isset($req->last_address)) {
                 $this->updateAddress($check->id, $req);
                 $data = $data->where('id', $check->id)->with('users', 'provinces', 'districts', 'wards')->get();
@@ -677,7 +800,7 @@ class APIUserController extends ApiController
             if (isset($req->default)) {
                 if ($req->default == true) {
                     $flag = DeliveryAddress::where('user_id', $req->user()->id)->where('default', 1)->first();
-                    if (!empty((array)$flag)) {
+                    if (!empty((array) $flag)) {
                         $flag->default = 0;
                         $flag->save();
                     }
@@ -696,7 +819,7 @@ class APIUserController extends ApiController
                 'district_id' => $q->district_id,
                 'ward_id' => $q->ward_id,
                 'home_number' => $q->home_number,
-                'full_address' => $q->home_number . ', ' . $q->wards->name . ', ' . $q->districts->name . ', ' . $q->provinces->name
+                'full_address' => $q->home_number . ', ' . $q->wards->name . ', ' . $q->districts->name . ', ' . $q->provinces->name,
             ];
             $result['default'] = $q->default;
         }
@@ -708,7 +831,7 @@ class APIUserController extends ApiController
         $delivery = DeliveryAddress::find($id);
         if (isset($delivery->user_id)) {
             $user = User::where('id', $delivery->user_id)->where('province_id', $delivery->province_id)->where('district_id', $delivery->district_id)
-                ->where('ward_id', $delivery->ward_id)->where('home_number', $delivery->home_number)->first();;
+                ->where('ward_id', $delivery->ward_id)->where('home_number', $delivery->home_number)->first();
             if (isset($user->province_id)) {
                 $user->province_id = null;
                 $user->district_id = null;
@@ -726,7 +849,7 @@ class APIUserController extends ApiController
     public function updateBank(Request $req)
     {
         $user = $req->user();
-        if ($user->bank_account != null && $user->bank_name != null && $user->bank_branch != null && $user->bank_account_number != null){
+        if ($user->bank_account != null && $user->bank_name != null && $user->bank_branch != null && $user->bank_account_number != null) {
             return $this->apiError('Tài khoản không được phép tự ý cập nhật, gọi đến hotline để được hỗ trợ');
         }
         $validator = Validator::make($req->all(), [
@@ -783,7 +906,7 @@ class APIUserController extends ApiController
     public function updatePass(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'password' => 'required|min:5'
+            'password' => 'required|min:5',
         ], [
             'password.required' => 'Password is required!',
             'password.min' => 'Your password is too short!',
@@ -809,7 +932,7 @@ class APIUserController extends ApiController
     {
         $validator = Validator::make($req->all(), [
             'device_token' => 'string',
-            'device_type' => 'string|in:ios,android'
+            'device_type' => 'string|in:ios,android',
         ]);
 
         if ($validator->fails()) {
@@ -864,14 +987,15 @@ class APIUserController extends ApiController
                 'district_id' => $item->district_id,
                 'ward_id' => $item->ward_id,
                 'home_number' => $item->home_number,
-                'full_address' => $item->full_address
+                'full_address' => $item->full_address,
             ];
             unset($item->province_id, $item->district_id, $item->ward_id, $item->home_number, $item->full_address, $item->user_id, $item->type, $item->created_at, $item->updated_at);
         }
         return $this->apiOk($data);
     }
 
-    public function turnOnParttime(Request $req) {
+    public function turnOnParttime(Request $req)
+    {
         $validator = Validator::make($req->all(), [
             'turn_on' => 'required',
         ]);
@@ -882,28 +1006,29 @@ class APIUserController extends ApiController
 
         $userId = $req->user()->id;
         $shipper = ShipperLocation::where('user_id', $userId)->first();
-        if ($shipper == null){
+        if ($shipper == null) {
             $shipper = new ShipperLocation();
             $shipper->user_id = $userId;
         }
         $shipper->online = $req->turn_on;
         if ($shipper->save()) {
             $dataLocation = array(
-                'lat' =>  isset($req->lat) ? $req->lat : $shipper->lat,
+                'lat' => isset($req->lat) ? $req->lat : $shipper->lat,
                 'lng' => isset($req->lng) ? $req->lng : $shipper->lng,
-                'id' => $userId
+                'id' => $userId,
             );
             event(new GetLocationShipper($dataLocation));
-            \Log::info('id'.$userId.', turn_on: '.$req->turn_on);
+            \Log::info('id' . $userId . ', turn_on: ' . $req->turn_on);
             return $this->apiOk($shipper->toArray());
         }
         return $this->apiError('Updated shipper fail!');
     }
 
-    public function updateDevice(Request $req) {
+    public function updateDevice(Request $req)
+    {
         $validator = Validator::make($req->all(), [
             'device_type' => 'required|in:ios,android',
-            'device_token' => 'required'
+            'device_token' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -913,9 +1038,9 @@ class APIUserController extends ApiController
         $userId = $req->user()->id;
         $status = Device::updateOrCreate(array(
             'user_id' => $userId,
-            'device_type' => $req->device_type
+            'device_type' => $req->device_type,
         ), array(
-            'device_token' => $req->device_token
+            'device_token' => $req->device_token,
         ));
         if ($status) {
             return $this->apiOk('Updated device success!');
@@ -923,10 +1048,11 @@ class APIUserController extends ApiController
         return $this->apiError('Updated device fail!');
     }
 
-    public function getShipperOnline(Request $req) {
+    public function getShipperOnline(Request $req)
+    {
         $userId = $req->user()->id;
         $shipperOnline = ShipperLocation::where('user_id', $userId)->where('online', 1)->first();
-        if ( !empty($shipperOnline) ) {
+        if (!empty($shipperOnline)) {
             return $this->apiOk(['online' => 1]);
         }
         return $this->apiOk(['online' => 0]);

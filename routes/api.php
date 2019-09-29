@@ -41,6 +41,7 @@ Route::group(['prefix' => 'users', 'namespace' => 'Api'], function () {
     // Route::get('location', 'LocationController@location');
     Route::post('login', 'APIUserController@login');
     Route::post('login_shipper', 'APIUserController@loginWithPassword');
+    Route::post('login_warehouse', 'APIUserController@loginWarehouse');
     Route::post('login_fb', 'APIUserController@loginfb');
     Route::post('login_google', 'APIUserController@loginGG');
     // Route::get('notifications', 'NotificationController@index');

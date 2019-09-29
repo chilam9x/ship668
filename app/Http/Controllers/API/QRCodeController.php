@@ -17,7 +17,7 @@ class QRCodeController extends ApiController
             if ($qr != null) {
                 //check qrcode đã được sử dụng chưa
                 $qr2 = QRCode::findQRCode_OrderNew($request->qrcode);
-                if ($qr2 == null) {
+                if ($qr2 != null) {
                     return response()->json(['msg' => 'Bạn đã quét QRcode thành công', 'code' => 200]);
                 } else {
                     return response()->json(['msg' => 'Qrcode đã được sử dụng', 'code' => 201]);
@@ -67,7 +67,7 @@ class QRCodeController extends ApiController
                 $qr2 = QRCode::checkQRCode_OrderTaking($request->qrcode);
                 if ($qr2 != null) {
                     //nhập đơn mới vào kho
-                    $order = QRCode::intoWarehouse($request->qrcode);
+                    $order = QRCode::intoWarehouse($request);
                     if ($order == 200) {
                         return response()->json(['msg' => 'Bạn lấy đơn hàng thành công ', 'code' => 200]);
                     } else {

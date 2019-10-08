@@ -35,6 +35,7 @@ use function url;
 use function view;
 use App\Helpers\NotificationHelper;
 use App\Jobs\NotificationJob;
+use App\Models\QRCode;
 
 class BookingController extends Controller
 {
@@ -188,16 +189,22 @@ class BookingController extends Controller
             if ($check == 0) {
                 $booking->is_customer_new = 1;
             }
-            
             $booking->save();
-            $uuid = Booking::find($booking->id);
-            $uuid->uuid = str_random(5) . $uuid->id;
-            $uuid->save();
+            $qrcode = new QRCode();
+            $qrcode->name = str_random(5) . $booking->id;
+            $qrcode->created_at = date('Y-m-d h:i:s');
+            $qrcode->used_at = date('Y-m-d h:i:s');
+            $qrcode->is_used = 1;
+            $qrcode->save();
+            
+            $booking->uuid = $qrcode->name;
+            $booking->qrcode_id = $qrcode->id;
+            $booking->save();
             DB::commit();
 
             // Thông báo tới admin có đơn hàng mới
             $bookingTmp = $booking->toArray();
-            $bookingTmp['uuid'] = $uuid->uuid;
+            $bookingTmp['uuid'] = $booking->uuid;
             // $notificationHelper = new NotificationHelper();
             // $notificationHelper->notificationBooking($bookingTmp, 'admin', ' vừa được tạo', 'push_order');
             dispatch(new NotificationJob($bookingTmp, 'admin', ' vừa được tạo', 'push_order'));

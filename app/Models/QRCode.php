@@ -7,9 +7,13 @@ use App\Models\BookDelivery;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
 
-class QRCode
+class QRCode extends Model
 {
+    protected $table = 'qrcode';
+    public $timestamps = false;
+
     public static function getList()
     {
         $res = DB::table('qrcode as q')->leftJoin('bookings as b', 'b.qrcode_id', '=', 'q.id')->select('q.*', 'b.id as booking_id')->orderBy('id', 'desc')->paginate(20);
@@ -124,7 +128,7 @@ class QRCode
     //2.1phân công lấy đơn hàng
     public static function receiveOrder($qrcode)
     {
-        $shipper_id = Auth::user()->id;
+        $shipper_id = 7;
         $booking = DB::table('bookings')->where('uuid', $qrcode)->first();
         $booking = Booking::find($booking->id);
         $check = BookDelivery::where('book_id', $booking->id)->first();

@@ -8,7 +8,7 @@
 <div class="container header">
     <div class="row">
         <div class="col-md-3 logo">
-            <a href="{!! url('/') !!}"><img alt="Logo" src="{!! asset('/landing_page/images/Logo.png') !!}" width="64%"></a>
+            <a href="{!! url('/') !!}"><img alt="Logo" src="{!! asset('public/landing_page/images/Logo.png') !!}" width="64%"></a>
         </div>
         <div class="col-md-9">
             <ul class="menu">
@@ -16,12 +16,12 @@
                     <li class="dropdown" style="margin-top: -5px">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                             <img style="margin-top: -10px" width="40px" alt=""
-                                 src="{{Auth::user()->avatar != null ? url(Auth::user()->avatar) : url('/img/default-avatar.jpg')}}">
+                                 src="{{Auth::user()->avatar != null ? url(Auth::user()->avatar) : url('public/img/default-avatar.jpg')}}">
                             <span class="username username-hide-on-mobile">{!! @Auth::user()->name !!}</span>
                             @if(@Auth::user()->is_vip == 1)
-                            <img src="{{ asset('img/vip.png') }}" width="30px" title="Khách hàng VIP">
+                            <img src="{{ asset('public/img/vip.png') }}" width="30px" title="Khách hàng VIP">
                             @elseif(@Auth::user()->is_vip == 2)
-                            <img src="{{ asset('img/pro.png') }}" width="30px" title="Khách hàng Pro">
+                            <img src="{{ asset('public/img/pro.png') }}" width="30px" title="Khách hàng Pro">
                             @endif
                         </a>
                         <ul style="min-width: 200px" class="dropdown-menu">

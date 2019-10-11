@@ -3,10 +3,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Smart Express</title>
-    <link rel="shortcut icon" href="{{ asset('/img/logo.png') }}"/>
+    <link rel="shortcut icon" href="{{ asset('public/img/logo.png') }}"/>
     <!-- Link Style Sheet -->
-    <link rel="stylesheet" href="{!! asset('/landing_page/css/style.css') !!}">
-    <link rel="stylesheet" href="{!! asset('/landing_page/css/font-awesome.css') !!}">
+    <link rel="stylesheet" href="{!! asset('public/landing_page/css/style.css') !!}">
+    <link rel="stylesheet" href="{!! asset('public/landing_page/css/font-awesome.css') !!}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">

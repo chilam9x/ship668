@@ -1,5 +1,6 @@
 @extends('front-ent.app')
 @section('content')
+
     <!-- BANNER -->
     <section class="banner-sub">
         <div class="container">
@@ -81,7 +82,8 @@
                 <table class="table table-bordered">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Mã đơn hàng</th>
+                        <th scope="col">QR Code</th>
+                        <th scope="col">Ảnh đơn hàng</th>
                         <th scope="col">Tên đơn hàng</th>
                         <th scope="col">Họ tên</th>
                         <th scope="col">Địa chỉ</th>
@@ -103,7 +105,13 @@
                     @if(isset($bookings))
                         @foreach($bookings as $b)
                             <tr>
-                                <th scope="row">{!! $b->uuid !!}</th>
+                                <td>@if($b->qr_name!=null)  {!! QrCode::size(100)->generate($b->qr_name); !!} <br>{!! $b->qr_name !!}@endif </td>
+                                <td> <img id="myImg" src="/{{$b->image_order}}"
+                                        alt="No Image" style="width:100%;max-width:200px"
+                                        onclick="openImgModal('{{$b->image_order}}')"
+                                        onerror="this.onerror=null;this.src='/img/not-found.png';"
+                                        data-toggle="modal" data-target="#imgOrder"> 
+                                </td>
                                 <td>{!! $b->name !!}</td>
                                 <td>{!! $b->send_name !!}</td>
                                 <td>{!! $b->send_full_address !!}</td>
@@ -125,7 +133,7 @@
                                             <td>Delay</td>
                                         @elseif($b->status == 'cancel')
                                             <td>Hủy</td>
-                                         @elseif($b->status == 'taking')
+                                        @elseif($b->status == 'taking')
                                             <td>Đang đi lấy</td>
                                         @else
                                             <td>{{ $b->status  == 'sending' ? 'Đang giao hàng' : 'Đã giao hàng'}}</td>
@@ -169,7 +177,7 @@
                     <h4>Xuất Excel đơn hàng</h4>
                 </div>
                 <form id="import" method="get" action="{!! url('front-ent/export-excel-book') !!}"
-                      enctype="multipart/form-data">
+                    enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row" style="margin-top: 15px">
                             {{csrf_field()}}
@@ -207,10 +215,35 @@
             </div>
         </div>
     </div>
+    <!-- hình ảnh đơn hàng -->
+    <div class="modal fade" id="imgOrder" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Ảnh đơn hàng</h4>
+                </div>
+                    <div class="modal-body">
+                        <img id="modalContent" src="" width="100%"> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('script')
     <script>
+        function openImgModal(image_order) {
+            var img = document.getElementById('modalContent');
+            if(image_order){
+                img.src ='/'+image_order;
+            }else{
+                img.src ='/img/not-found.png';
+            }
+            $("#imgOrder").css("display", "block");
+        }
         function searchBooking(data) {
             $.ajax({
                 type: "GET",

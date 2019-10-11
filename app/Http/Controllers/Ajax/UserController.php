@@ -60,8 +60,7 @@ class UserController extends Controller
 
     public function getCustomer()
     {
-        $user = User::where('role', 'customer')->where('delete_status', 0);
-
+        $user = User::where('role', 'customer')->where('delete_status', 0)->orderBy('id','desc');
         return datatables()->of($user)
             ->addColumn('action', function ($user) {
                 $action = [];
@@ -310,6 +309,76 @@ class UserController extends Controller
                 }
                 $action[] = '<a style="float:left" href="' . url('admin/shippers/refresh-book/' . $user->id) . '" class="btn btn-xs btn-default" onclick="if(!confirm(\'Bạn chắc chắn muốn làm mới phân công của shipper này không ?\')) return false;"><i class="fa fa-refresh"></i> Làm mới ĐH</a>';
                 $action[] = '<a style="float:left" href="' . url('admin/shippers/manage-scope/' . $user->id) . '" class="btn btn-xs btn-default"><i class="fa fa-refresh"></i> Phân khu vực</a>';
+                return implode(' ', $action);
+            })
+            ->addColumn('agency', function ($user) {
+                $data = '';
+                if (!empty($user->shipper)) {
+                    $data = Agency::find($user->shipper->agency_id)->name;
+                }
+                return $data;
+            })
+            ->addColumn('revenue_price', function ($user) {
+                $data = 0;
+                if ($user->revenues != null) {
+                    $data = round($user->revenues->total_price - $user->revenues->price_paid);
+                }
+                return number_format($data) . '<br/><a style="margin-top: 5px" href="#" onclick="shipperPaid([' . $user->id . ', \'price_paid\', ' . $data . '])" class="btn btn-xs btn-success"> Thanh toán</a>'; //<a href="' . url('admin/shippers/detail_total_cod/' . $user->id . '?type=ship&name=' . $user->name) . '" class="btn btn-xs btn-info">Chi tiết</a>
+            })
+            ->addColumn('revenue_cod', function ($user) {
+                $data = 0;
+                if ($user->revenues != null) {
+                    $data = round($user->revenues->total_COD - $user->revenues->COD_paid);
+                }
+                return number_format($data) . '<br/><a style="margin-top: 5px" href="#" onclick="shipperPaid([' . $user->id . ', \'COD_paid\', ' . $data . '])" class="btn btn-xs btn-success"> Thanh toán</a>'; //<a href="' . url('admin/shippers/detail_total_cod/' . $user->id . '?type=cod&name=' . $user->name) . '" class="btn btn-xs btn-info">Chi tiết</a>
+            })
+            ->editColumn('avatar', function ($user) {
+                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('/img/default-avatar.jpg');
+                $data = '<img src="' . $user->avatar . '" width="80px"></img>';
+                return $data;
+            })
+            ->editColumn('uuid', function ($user) {
+                return $user->uuid != null ? $user->uuid : '';
+            })
+            ->editColumn('name', function ($user) {
+                $shipperLocation = ShipperLocation::where('user_id', $user->id)->first();
+                $name = $user->name != null ? '<span onclick="statistical(' . $user->id . ')" style="cursor: pointer">' . $user->name : '<span onclick="statistical(' . $user->id . ')" style="cursor: pointer">';
+                if (!empty($shipperLocation) && $shipperLocation->online == 1) {
+                    $name .= ' <span class="badge badge-success"> Online </span>';
+                } else {
+                    $name .= ' <span class="badge badge-danger"> Offline </span>';
+                }
+                $name .= '</span>';
+                return $name;
+            })
+            ->rawColumns(['avatar', 'action', 'revenue_price', 'revenue_cod', 'name'])
+            ->make(true);
+    }
+    public function getWareHouse()
+    {
+        $user_id = Auth::user()->id;
+        $scope = Collaborator::where('user_id', $user_id)->pluck('agency_id');
+        $user = User::with('revenues', 'shipper')->where('role', 'warehouse')->where('delete_status', 0)->where('status', 'active');
+        if (Auth::user()->role == 'collaborators') {
+            $user = $user->whereHas('shipper', function ($query) use ($scope) {
+                $query->whereIn('agency_id', $scope);
+            });
+        }
+        return datatables()->of($user)
+            ->addColumn('action', function ($user) {
+                $action = [];
+                $action[] = '<a style="float:left" href="#" onclick="exportBooking(' . $user->id . ')" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i> Xuất đơn hàng</a>';
+                $action[] = '<a style="float:left" href="' . url('admin/warehouse/' . $user->id . '/edit') . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Sửa</a>';
+                $action[] = '<div style="float: left">' . Form::open(['method' => 'DELETE', 'url' => ['admin/warehouse/' . $user->id]]) .
+                    '<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash-o"></i> Xóa</button>' .
+                    Form::close() . '</div>';                    
+                if (Auth::user()->role == 'admin') {
+                    $action[] = '<div style="float: left">' . Form::open(['method' => 'GET', 'url' => ['admin/warehouse/' . $user->id]]) .
+                        '<button class="btn btn-xs btn-info" type="submit"><i class="fa fa-eye"></i> Chi tiết</button>' .
+                        Form::close() . '</div>';
+                }
+                $action[] = '<a style="float:left" href="' . url('admin/warehouse/refresh-book/' . $user->id) . '" class="btn btn-xs btn-default" onclick="if(!confirm(\'Bạn chắc chắn muốn làm mới phân công của shipper này không ?\')) return false;"><i class="fa fa-refresh"></i> Làm mới ĐH</a>';
+                $action[] = '<a style="float:left" href="' . url('admin/warehouse/manage-scope/' . $user->id) . '" class="btn btn-xs btn-default"><i class="fa fa-refresh"></i> Phân khu vực</a>';
                 return implode(' ', $action);
             })
             ->addColumn('agency', function ($user) {

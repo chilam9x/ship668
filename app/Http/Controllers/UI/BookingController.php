@@ -53,7 +53,7 @@ class BookingController extends Controller
     }
 
     public function allBooking(){
-        $db = Booking::where('sender_id', Auth::user()->id);
+        $db = DB::table('bookings as b')->leftJoin('qrcode as q','b.qrcode_id','=','q.id')->where('b.sender_id', Auth::user()->id)->select('b.*','q.name as qr_name');
 
         if (isset(request()->keyword) && !empty(request()->keyword)) {
             $db = $db->where(function($q){
@@ -68,7 +68,7 @@ class BookingController extends Controller
             });
         }
 
-        $all = $db->orderBy('created_at', 'desc')->paginate(10);
+        $all = $db->orderBy('b.created_at', 'desc')->paginate(10);
         $url = url('front-ent/booking/all');
         $keyword = isset(request()->keyword) ? request()->keyword : '';
         $countBookStatus = $this->countBookStatus();
@@ -267,6 +267,7 @@ class BookingController extends Controller
      */
     public function store(CreateBookingRequest $req)
     {
+
         DB::beginTransaction();
         try {
             $sender_id = null;
@@ -281,6 +282,7 @@ class BookingController extends Controller
             //     $user->save();
             //     $sender_id = $user->id;
             // }
+
             $sender_id = Auth::user()->id;
             if (!empty($receiver_check)) {
                 $receiver_id = $receiver_check->id;
@@ -316,6 +318,14 @@ class BookingController extends Controller
             $booking->COD = $req->cod != null ? $req->cod : 0;
             $booking->other_note = $req->other_note;
             $booking->status = 'new';
+            if ($req->hasFile('image_order')) {
+                $file = $req->image_order;
+                $filename = date('Ymd-His-') . $file->getFilename() . '.' . $file->extension();
+                $filePath = 'img/order/';
+                $movePath = public_path($filePath);
+                $file->move($movePath, $filename);
+                $booking->image_order = $filePath . $filename;
+            }
             $transport_type_services = null;
             if(!empty($req->transport_type_service1)){
                 $transport_type_services[] = 11;
@@ -342,11 +352,18 @@ class BookingController extends Controller
             }
 
             $booking->save();
+            //tạo uuid
             $uuid = Booking::find($booking->id);
             $uuid->uuid = str_random(5) . $uuid->id;
+            //tạo qrcode
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $qrcode_id=DB::table('qrcode')->insertGetId(
+                ['name' => $uuid->uuid, 'is_used' => 1,'created_at'=>date('Y-m-d H:i:s'),'used_at'=>date('Y-m-d H:i:s')]
+            );
+            $uuid->qrcode_id=$qrcode_id;
             $uuid->save();
+
             DB::commit();
-           
 
             // Thông báo tới admin có đơn hàng mới
             $bookingTmp = $booking->toArray();

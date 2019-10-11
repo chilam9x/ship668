@@ -79,12 +79,12 @@
                         <h2>cần gửi hàng tạo đơn hàng ngay</h2>
                         <span>Cá nhân, cửa hàng, doanh nghiệp đều dễ dàng gửi hàng</span>
                     </div>
-                    <div class="col-md-3 col-sm-12">
+                    <!-- <div class="col-md-3 col-sm-12">
                         <a href="#"  data-toggle="modal" data-target="#loginModal">Tạo đơn hàng</a>
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <a href="#"  data-toggle="modal" data-target="#loginModal">Tạo đơn hàng loạt</a>
-                    </div>
+                    </div> -->
                 </div>
             @endif
         </div>

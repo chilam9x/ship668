@@ -1,7 +1,7 @@
 @extends('admin.app')
 
 @section('title')
-    Shipper
+    Kho
 @endsection
 
 @section('sub-title')
@@ -14,22 +14,21 @@
         @include('admin.partial.log.success_log',['name' => 'success'])
         {{--@if(Auth::user()->role == 'collaborators')--}}
             <div class="well" style="padding-left: 0px">
-                <a href="{!! url('admin/shippers/create') !!}" class="btn btn-primary"> <i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
-                <a href="{!! url('admin/shippers/maps') !!}" class="btn btn-info"> <i class="fa fa-location-arrow" aria-hidden="true"></i> Xem trên bản đồ</a>
+                <a href="{!! url('admin/warehouse/create') !!}" class="btn btn-primary"> <i class="fa fa-plus" aria-hidden="true"></i> Thêm mới</a>
             </div>
         {{--@endif--}}
         <div class="col-lg-12">
             @include('admin.table_paging', [
-               'id' => 'shipper',
+               'id' => 'warehouse',
                'title' => [
-                       'caption' => 'Dữ liệu shipper',
+                       'caption' => 'Dữ liệu kho',
                        'icon' => 'fa fa-table',
                        'class' => 'portlet box green',
                ],
-               'url' => url("/ajax/shipper"),
+               'url' => url("/ajax/warehouse"),
                'columns' => [
                        ['data' => 'name', 'title' => 'Tên'],
-                       ['data' => 'uuid', 'title' => 'Mã shipper'],
+                       ['data' => 'uuid', 'title' => 'Mã quản lý kho'],
                        ['data' => 'avatar', 'title' => 'Ảnh đại diện'],
                        ['data' => 'email', 'title' => 'Email'],
                        ['data' => 'phone_number', 'title' => 'Số điện thoại'],
@@ -53,7 +52,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 style="font-weight: bold; color: #1d0c09" class="modal-title">Giao diện xuất đơn hàng theo shipper</h4>
                 </div>
-                <form id="import" method="get" action="{!! url('admin/shippers/list_booking') !!}"
+                <form id="import" method="get" action="{!! url('admin/warehouse/list_booking') !!}"
                       enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row" style="margin-top: 15px">
@@ -95,7 +94,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 style="font-weight: bold; color: #1d0c09" class="modal-title">Thống kê Shipper & Đơn hàng</h4>
                 </div>
-                <form id="import" method="get" action="{!! url('admin/shippers/list_booking') !!}"
+                <form id="import" method="get" action="{!! url('admin/warehouse/list_booking') !!}"
                       enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row">
@@ -133,7 +132,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 id="paid_title" style="font-weight: bold; color: #1d0c09" class="modal-title"></h4>
                 </div>
-                <form id="import" method="get" action="{!! url('admin/shippers/paid') !!}"
+                <form id="import" method="get" action="{!! url('admin/warehouse/paid') !!}"
                       enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row" style="margin-top: 15px">

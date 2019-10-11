@@ -16,7 +16,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use function dd;
 use App\Http\Controllers\Controller;
-use Auth, DB;
+use Auth;
+use Illuminate\Support\Facades\DB;
 use function in_array;
 use function microtime;
 use function url;
@@ -54,7 +55,7 @@ class BookingController extends Controller
         } else {
             $booking = Booking::whereIn('status', ['new', 'taking'])->where('sub_status', 'none');
         }
-        // $booking = $booking->orderBy('id', 'DESC')->orderBy('status', 'desc')->get();
+        $booking = $booking->orderBy('id', 'DESC');
         $booking = $booking->with(['deliveries']);
         return datatables()->of($booking)
             ->addColumn('action', function ($b) {
@@ -109,6 +110,12 @@ class BookingController extends Controller
                 }
                 return $image;
             })
+            ->editColumn('image_order', function ($b) {
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+            })
+            ->editColumn('uuid', function ($b) {
+                return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
+            })
             ->editColumn('status', function ($b) {
                 return $b->status == 'new' ? 'Mới' : 'Đang lấy';
             })
@@ -138,7 +145,7 @@ class BookingController extends Controller
                 $delivery = BookDelivery::where('book_id', $b->id)->where('category', 'receive')->where('status', 'processing')->where('sending_active', 1)->select('created_at as receive_created_at')->first();
                 return !empty($delivery) ? $delivery->receive_created_at : '';
             })
-            ->rawColumns(['report_image', 'action', 'send_name'])
+            ->rawColumns(['report_image', 'action', 'send_name','image_order','uuid'])
             ->make(true);
     }
 
@@ -211,7 +218,7 @@ class BookingController extends Controller
                 $query->whereIn('user_id', $shipperIds);
             });
         }
-
+        $booking = $booking->orderBy('id', 'DESC');
         return datatables()->of($booking)
             ->addColumn('shipper_name', function (Booking $booking) {
                 return $booking->shipperSender ? $booking->shipperSender->shipper_name : $booking->shipperRecivcier->shipper_name;
@@ -238,6 +245,12 @@ class BookingController extends Controller
                 $action[] = '<a style="background: rgba(73,4,70,0.87)" href="' . url('admin/booking/delete/received/' . $b->id) . '" onclick="if(!confirm(\'Bạn chắc chắn muốn xóa đơn hàng này không ?\')) return false;" class="btn btn-xs btn-primary"><i class="fa fa-trash"></i> Xóa</a></div>';
                 return implode(' ', $action);
             })
+            ->editColumn('image_order', function ($b) {
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+            })
+            ->editColumn('uuid', function ($b) {
+                return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
+            })
             ->editColumn('status', function ($b) {
                 return 'Chưa giao';
             })
@@ -257,7 +270,6 @@ class BookingController extends Controller
                 }
                 return $tran;
             })
-     
             ->addColumn('report_image', function ($b) {
                 $delivery = BookDelivery::where('book_id', $b->id)->where('category', 'receive')->where('status', 'completed')
                     ->orWhere('book_id', $b->id)->where('category', 'send')->where('status', 'processing')
@@ -287,7 +299,7 @@ class BookingController extends Controller
                 $delivery = BookDelivery::where('book_id', $b->id)->where('category', 'send')->where('status', 'processing')->where('sending_active', 1)->select('created_at as send_created_at')->first();
                 return !empty($delivery) ? $delivery->send_created_at : '';
             })
-            ->rawColumns(['report_image', 'action'])
+            ->rawColumns(['report_image', 'action','image_order','uuid'])
             ->make(true);
     }
 
@@ -299,7 +311,7 @@ class BookingController extends Controller
             $booking = $booking->whereIn('current_agency', $scope);*/
             $booking = $booking->whereIn('send_ward_id', $this->getBookingScope());
         }
-        // $booking = $booking->orderBy('id', 'desc')->get();
+        $booking = $booking->orderBy('id', 'desc')->get();
         return datatables()->of($booking)
             ->addColumn('action', function ($b) {
                 $action = [];
@@ -318,6 +330,12 @@ class BookingController extends Controller
                     }
                 }
                 return $data;
+            })
+            ->editColumn('image_order', function ($b) {
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+            })
+            ->editColumn('uuid', function ($b) {
+                return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
             })
             ->editColumn('status', function ($b) {
                 return 'Tạm hoãn';
@@ -368,7 +386,7 @@ class BookingController extends Controller
             ->editColumn('user_create', function ($b) {
                 return $b->sender->name . ' ' . $b->sender->phone_number;
             })
-            ->rawColumns(['report_image', 'action'])
+            ->rawColumns(['report_image', 'action','image_order','uuid'])
             ->make(true);
     }
 
@@ -378,7 +396,7 @@ class BookingController extends Controller
         if (Auth::user()->role == 'collaborators') {
             $booking = $booking->whereIn('send_ward_id', $this->getBookingScope());
         }
-        // $booking = $booking->orderBy('id', 'desc')->get();
+        $booking = $booking->orderBy('id', 'desc')->get();
         return datatables()->of($booking)
             /*->addColumn('action', function ($b) {
                 $action = [];
@@ -422,7 +440,13 @@ class BookingController extends Controller
             ->editColumn('user_create', function ($b) {
                 return $b->sender->name . ' ' . $b->sender->phone_number;
             })
-            ->rawColumns(['report_image', 'action'])
+            ->editColumn('image_order', function ($b) {
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+            })
+            ->editColumn('uuid', function ($b) {
+                return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
+            })
+            ->rawColumns(['report_image', 'action','image_order','uuid'])
             ->make(true);
     }
 
@@ -436,7 +460,7 @@ class BookingController extends Controller
             $booking = $booking->whereIn('first_agency', $scope)->orWhere('last_agency', $scope);
         }
         $result = $scope != null ? $scope->toArray() : [];
-        // $booking = $booking->orderBy('id', 'desc')->get();
+        $booking = $booking->orderBy('id', 'desc')->get();
         return datatables()->of($booking)
             ->addColumn('receiveShipper', function ($b) {
                 if ($b->status != null) {
@@ -524,7 +548,13 @@ class BookingController extends Controller
             ->editColumn('user_create', function ($b) {
                 return $b->sender->name . ' ' . $b->sender->phone_number;
             })
-            ->rawColumns(['COD_status', 'report_image'])
+            ->editColumn('image_order', function ($b) {
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+            })
+            ->editColumn('uuid', function ($b) {
+                return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
+            })
+            ->rawColumns(['COD_status', 'report_image','image_order','uuid'])
             ->make(true);
     }
 
@@ -609,6 +639,12 @@ class BookingController extends Controller
             ->addColumn('shipper', function ($b) {
                 return $b->user_id != 0 ? @BookDelivery::where('id', $b->id)->where('category', 'return')->first()->shipper_name : '';
             })
+            ->editColumn('image_order', function ($b) {
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+            })
+            ->editColumn('uuid', function ($b) {
+                return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
+            })
             ->editColumn('status', function ($b) {
                 $status = '';
                 if ($b->sub_status == 'none' && $b->status == 'deny') {
@@ -676,7 +712,7 @@ class BookingController extends Controller
             ->editColumn('user_create', function ($b) {
                 return $b->create_name . ' ' . $b->create_phone_number;
             })
-            ->rawColumns(['report_image', 'action'])
+            ->rawColumns(['report_image', 'action','image_order','uuid'])
             ->make(true);
     }
 
@@ -754,6 +790,12 @@ class BookingController extends Controller
                 }
                 return implode(' ', $action);
             })
+            ->editColumn('image_order', function ($b) {
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+            })
+            ->editColumn('uuid', function ($b) {
+                return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
+            })
             ->editColumn('status', function ($b) {
                 $status = '';
                 $user_id = Auth::user()->id;
@@ -798,6 +840,7 @@ class BookingController extends Controller
                 }
                 return $tran;
             })
+            ->rawColumns(['image_order','uuid'])
             ->make(true);
     }
 

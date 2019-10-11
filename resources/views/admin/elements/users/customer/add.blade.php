@@ -299,6 +299,11 @@
                                 <br><input type="radio" class=""  name="is_vip" value="1" @if(@$customer->is_vip == 1) checked="" @endif> Đặt là khách VIP
                                 <br><input type="radio" class=""  name="is_vip" value="2" @if(@$customer->is_vip == 2) checked="" @endif> Đặt là khách Pro
                             </div>
+                            <div class="col-lg-6">
+                                <label class="control-label" for="inputError">Tạm ứng tiền</label>
+                                <br><input type="radio" class=""  name="is_advance_money" value="0" @if(@$customer->is_advance_money == 0) checked="" @endif> Không
+                                <br><input type="radio" class=""  name="is_advance_money" value="1" @if(@$customer->is_advance_money == 1) checked="" @endif> Có
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn blue">Thực hiện</button>

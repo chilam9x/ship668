@@ -34,6 +34,14 @@
         </a>
     </li>
     @if(\Auth::user()->role == 'admin')
+        <li class="nav-item start @if(isset($active)&& $active == 'qrcode') active @endif">
+            <a href="{{ url('/admin/qrcode') }}" class="nav-link">
+                <i class="fa fa-qrcode" aria-hidden="true"></i>
+                <span class="title">Quản lý QR Code</span>
+                @if(isset($active)&& $active == 'qrcode')<span class="selected"></span>
+                @endif
+            </a>
+        </li>
         <li class="nav-item start @if(isset($active)&& $active == 'district_type') active @endif">
             <a href="{{ url('/admin/district_type') }}" class="nav-link">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -67,11 +75,11 @@
         </ul>
 
     </li>
-    <li class="nav-item start @if(isset($active)&& $active == 'collaborators' || $active == 'shipper' || $active == 'agency') active open @endif">
+    <li class="nav-item start @if(isset($active)&& $active == 'collaborators' || $active == 'shipper' || $active == 'agency' || $active == 'warehouse') active open @endif">
         <a href="javascript:;" class="nav-link nav-toggle">
             <i class="fa fa-user" aria-hidden="true"></i>
             <span class="title">Quản lý thành viên</span>
-            <span class="arrow @if(isset($active)&& $active == 'collaborators' || $active == 'shipper') open @endif"></span>
+            <span class="arrow @if(isset($active)&& $active == 'collaborators' || $active == 'shipper' || $active == 'warehouse') open @endif"></span>
             @if(isset($active)&& $active == 'user'|| $active == 'shipper')<span class="selected"></span>
             @endif
         </a>
@@ -94,6 +102,12 @@
                 <a href="{{ url('/admin/shippers') }}" class="nav-link">
                     {{--<i class="fa fa-user" aria-hidden="true"></i>--}}
                     <span class="title">Shipper</span>
+                </a>
+            </li>
+            <li class="nav-item   @if($active == 'warehouse') active @endif">
+                <a href="{{ url('/admin/warehouse') }}" class="nav-link">
+                    {{--<i class="fa fa-user" aria-hidden="true"></i>--}}
+                    <span class="title">Quản lý kho</span>
                 </a>
             </li>
         </ul>

@@ -18,7 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::group(['prefix' => 'users', 'namespace' => 'Api', 'middleware' => VerifyJWTToken::class], function () {
     Route::post('updategeneral', 'APIUserController@updateGeneral');
     Route::post('updatebank', 'APIUserController@updateBank');
@@ -42,6 +41,7 @@ Route::group(['prefix' => 'users', 'namespace' => 'Api'], function () {
     // Route::get('location', 'LocationController@location');
     Route::post('login', 'APIUserController@login');
     Route::post('login_shipper', 'APIUserController@loginWithPassword');
+    Route::post('login_warehouse', 'APIUserController@loginWarehouse');
     Route::post('login_fb', 'APIUserController@loginfb');
     Route::post('login_google', 'APIUserController@loginGG');
     // Route::get('notifications', 'NotificationController@index');
@@ -68,6 +68,7 @@ Route::group(['prefix' => 'order', 'namespace' => 'API', 'middleware' => VerifyJ
     Route::get('wallet/withdrawal', 'WalletController@withDrawal');
     Route::get('wallet/description', 'WalletController@getWalletDescription');
     Route::get('total-summary', 'WalletController@getTotalSummary');
+
     Route::group(['prefix' => 'customer'], function() {
         Route::get('last-book', 'Customer\OrderController@lastedBookSender');
         Route::put('updatebook/{id}/other-note', 'Customer\OrderController@updateNote');
@@ -78,7 +79,7 @@ Route::group(['prefix' => 'order', 'namespace' => 'API', 'middleware' => VerifyJ
     Route::group(['prefix' => 'shipper'], function () {
         Route::get('listbook', 'Shipper\OrderController@getListBook');
         Route::post('listbook-wait', 'Shipper\OrderController@getBookShipperWait');
-   
+
         Route::get('listbook-wait/detail', 'Shipper\OrderController@getBookShipperWaitDetail');
         Route::post('auto-assign', 'OrderController@assignShipperAuto');
         Route::post('auto-assign-single', 'Shipper\OrderController@assignSingleShipperAuto');
@@ -125,4 +126,23 @@ Route::group(['prefix' => 'setting', 'namespace' => 'API'], function () {
 
 Route::group(['prefix' => 'policy', 'namespace' => 'API'], function () {
     Route::get('/', 'PolicyController@getPolicy');
+});
+//--------RAYMOND------
+Route::group(['prefix' => 'qrcode', 'namespace' => 'API'], function () {
+    Route::group(['prefix' => 'customer'], function() {
+        Route::post('check-new', 'QRCodeController@checkNew');//1 check qrcode tạo đơn hàng
+    });
+    Route::group(['prefix' => 'shipper'], function() {
+        Route::post('receive', 'QRCodeController@receiveOrder');//2 lấy đơn
+        Route::post('sender', 'QRCodeController@senderOrder');//4 nhận đơn giao
+    });
+    Route::group(['prefix' => 'warehouse'], function() {
+        Route::post('into', 'QRCodeController@intoWarehouse');//3 nhập đơn mới vào kho
+        Route::post('fail', 'QRCodeController@failWarehouse');//5 nhập đơn hủy vào kho
+    });
+});
+Route::group(['prefix' => 'order', 'namespace' => 'API'], function () {
+    Route::group(['prefix' => 'customer'], function() {
+        Route::post('create', 'OrderController@create');//1.1 nhập COD,image_order,qrcode
+    });
 });

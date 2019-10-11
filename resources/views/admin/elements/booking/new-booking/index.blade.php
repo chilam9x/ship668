@@ -36,9 +36,6 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon2">Tỉnh / TP</span>
-                                    {{ Form::select('province_id', \App\Models\Province::getProvinceOption(1) , old('province_id', @$user->province_id),
-                                 ['class' => 'form-control', 'style' => 'min-width: 180px', 'id'=>'province', 'onchange'=>'loadDistrict()']) }}
                                     <span class="input-group-addon" id="sizing-addon2">Quận / Huyện</span>
                                     <select style="min-width: 180px" id="district" onchange="loadWard(this.value)" name="district_id"
                                             class="form-control">
@@ -70,40 +67,41 @@
         </div>
         <div class="col-lg-12">
             @include('admin.table_paging', [
-               'id' => 'new_booking',
-               'title' => [
-                       'caption' => 'Dữ liệu đơn hàng mới',
-                       'icon' => 'fa fa-table',
-                       'class' => 'portlet box green',
-               ],
-               'url' => url("/ajax/new_booking"),
-               'columns' => [
-                       ['data' => 'created_at', 'title' => 'Ngày tạo'],
-                       ['data' => 'receive_created_at', 'title' => 'Ngày đi lấy', 'orderable' => false, 'searchable' => false],
-                       ['data' => 'user_create', 'title' => 'Người tạo đơn', 'orderable' => false, 'searchable' => false],
-                       ['data' => 'uuid', 'title' => 'Mã đơn hàng'],
-                       ['data' => 'name', 'title' => 'Tên đơn hàng'],
-                       ['data' => 'send_name', 'title' => 'Người gửi'],
-                       ['data' => 'send_phone', 'title' => 'Số điện thoại'],
-                       ['data' => 'send_full_address', 'title' => 'Địa chỉ'],
-                       ['data' => 'receive_name', 'title' => 'Người nhận'],
-                       ['data' => 'receive_phone', 'title' => 'Số điện thoại'],
-                       ['data' => 'receive_full_address', 'title' => 'Địa chỉ'],
-                       ['data' => 'weight', 'title' => 'Khối lượng(gram)'],
-                       ['data' => 'transport_type', 'title' => 'Phương thức vận chuyển'],
-                       ['data' => 'price', 'title' => 'Giá'],
-                       ['data' => 'incurred', 'title' => 'Chi phí phát sinh'],
-                       ['data' => 'paid', 'title' => 'Số tiền đã thanh toán'],
-                       ['data' => 'COD', 'title' => 'Thu hộ'],
-                       ['data' => 'status', 'title' => 'Trạng thái'],
-                       ['data' => 'payment_type', 'title' => 'Ghi chú'],
-                       ['data' => 'other_note', 'title' => 'Ghi chú khác'],
-                       ['data' => 'note', 'title' => 'Ghi chú hệ thống'],
-                       ['data' => 'report_image', 'title' => 'Ảnh báo cáo'],
-                       ['data' => 'shipper', 'title' => 'Tên Shipper'],
-                       ['data' => 'action', 'title' => 'Hành động', 'orderable' => false]
-                   ]
-               ])
+                'id' => 'new_booking',
+                'title' => [
+                        'caption' => 'Dữ liệu đơn hàng mới',
+                        'icon' => 'fa fa-table',
+                        'class' => 'portlet box green',
+                ],
+                'url' => url("/ajax/new_booking"),
+                'columns' => [
+                        ['data' => 'image_order', 'title' => 'Ảnh đơn hàng'],
+                        ['data' => 'uuid', 'title' => 'QR Code'],
+                        ['data' => 'created_at', 'title' => 'Ngày tạo'],
+                        ['data' => 'receive_created_at', 'title' => 'Ngày đi lấy', 'orderable' => false, 'searchable' => false],
+                        ['data' => 'user_create', 'title' => 'Người tạo đơn', 'orderable' => false, 'searchable' => false],
+                        ['data' => 'name', 'title' => 'Tên đơn hàng'],
+                        ['data' => 'send_name', 'title' => 'Người gửi'],
+                        ['data' => 'send_phone', 'title' => 'Số điện thoại'],
+                        ['data' => 'send_full_address', 'title' => 'Địa chỉ'],
+                        ['data' => 'receive_name', 'title' => 'Người nhận'],
+                        ['data' => 'receive_phone', 'title' => 'Số điện thoại'],
+                        ['data' => 'receive_full_address', 'title' => 'Địa chỉ'],
+                        ['data' => 'weight', 'title' => 'Khối lượng(gram)'],
+                        ['data' => 'transport_type', 'title' => 'Phương thức vận chuyển'],
+                        ['data' => 'price', 'title' => 'Giá'],
+                        ['data' => 'incurred', 'title' => 'Chi phí phát sinh'],
+                        ['data' => 'paid', 'title' => 'Số tiền đã thanh toán'],
+                        ['data' => 'COD', 'title' => 'Thu hộ'],
+                        ['data' => 'status', 'title' => 'Trạng thái'],
+                        ['data' => 'payment_type', 'title' => 'Ghi chú'],
+                        ['data' => 'other_note', 'title' => 'Ghi chú khác'],
+                        ['data' => 'note', 'title' => 'Ghi chú hệ thống'],
+                        ['data' => 'report_image', 'title' => 'Ảnh báo cáo'],
+                        ['data' => 'shipper', 'title' => 'Tên Shipper'],
+                        ['data' => 'action', 'title' => 'Hành động', 'orderable' => false]
+                ]
+                ])
         </div>
     </div>
 
@@ -177,34 +175,6 @@
             'wrapAround': true,
             'showImageNumberLabel': true,
         });
-        loadDistrict();
-
-        function loadDistrict() {
-            var province = $('#province').val();
-            $("#district option[value!='-1']").remove();
-            $.ajax({
-                type: "GET",
-                url: '{{url('/ajax/get_district/')}}/' + province
-            }).done(function (msg) {
-                var i;
-                for (i = 0; i < msg.length; i++) {
-                    if (msg[i]['id'] == '{{@$user->district_id}}' || msg[i]['id'] == '{{old('district_id')}}') {
-                        $('select[name="district_id"]').append('<option value="' + msg[i]['id'] + '" selected>' + msg[i]['name'] + '</option>')
-                    } else {
-                        $('select[name="district_id"]').append('<option value="' + msg[i]['id'] + '">' + msg[i]['name'] + '</option>')
-                    }
-                }
-                if (typeof $('select[name=district_id]').val() !== 'undefined') {
-                    loadWard($('select[name=district_id]').val());
-                } else if ("{{old('district_id')}}") {
-                    loadWard('{{old('district_id')}}');
-                } else {
-                    loadWard(msg[0]['id']);
-
-                }
-            });
-        }
-
         function loadWard(id) {
             $("#ward option[value!='-1']").remove();
             $.ajax({
@@ -288,6 +258,29 @@
         }
 
         $(document).ready(function(){
+            var province = 50;
+            $("#district option[value!='-1']").remove();
+            $.ajax({
+                type: "GET",
+                url: "{{url('/ajax/get_district/')}}/" + province
+            }).done(function (msg) {
+                var i;
+                for (i = 0; i < msg.length; i++) {
+                    if (msg[i]['id'] == '{{@$user->district_id}}' || msg[i]['id'] == '{{old('district_id')}}') {
+                        $('select[name="district_id"]').append('<option value="' + msg[i]['id'] + '" selected>' + msg[i]['name'] + '</option>')
+                    } else {
+                        $('select[name="district_id"]').append('<option value="' + msg[i]['id'] + '">' + msg[i]['name'] + '</option>')
+                    }
+                }
+                if (typeof $('select[name=district_id]').val() !== 'undefined') {
+                    loadWard($('select[name=district_id]').val());
+                } else if ("{{old('district_id')}}") {
+                    loadWard('{{old('district_id')}}');
+                } else {
+                    loadWard(msg[0]['id']);
+
+                }
+            });
             $("#quick-assign").click(function(){
                 $("#type-assign").val('no_assign');
                 loadListBoook('no_assign');

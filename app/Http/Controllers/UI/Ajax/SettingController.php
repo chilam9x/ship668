@@ -300,7 +300,7 @@ class SettingController extends Controller
                 $result[] = [
                     '<div style="min-width: 250px; max-width: 250px; max-height: 80px; float: left">
                         <div style="width: 30%; float: left">
-                            <img src="'.url($l->users->avatar != null ? '/'.$l->users->avatar : asset('/img/default-avatar.jpg')).'" width="100%">
+                            <img src="'.url($l->users->avatar != null ? '/'.$l->users->avatar : asset('public/img/default-avatar.jpg')).'" width="100%">
                         </div>
                         <div style="width: 65%; float: left; margin: 15px 0px 0px 5px">
                             <strong>Tên: '.$name.'</strong><br/><br/>

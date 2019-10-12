@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <link rel="shortcut icon" href="{{ asset('/img/logo.png') }}"/>
+    <link rel="shortcut icon" href="{{ asset('public/img/logo.png') }}"/>
     <title>{!! ENV('APP_NAME') !!}</title>
     <link href="{{asset('/css/metronic/bootstrap.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- END HEAD -->
@@ -27,7 +27,7 @@
     <div class="col-xs-12">
         <div class="row">
             <div class="col-lg-2 pull left">
-                <img src="{{asset('/img/logo.png')}}" width="100%">
+                <img src="{{asset('public/img/logo.png')}}" width="100%">
             </div>
             <div class="col-lg-10 pull right">
                 <H2 align="center"><b>DANH SÁCH CHI TIẾT ĐƠN HÀNG NỢ CỦA KHÁCH HÀNG</b></H2>

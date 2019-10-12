@@ -8,7 +8,7 @@
     <!-- BEGIN LOGO -->
     <div class="page-logo">
         <a href="{{ url('/') }}">
-            <img src="{{ asset('/img/logo.png') }}" alt="logo" class="logo-default"/> </a>
+            <img src="{{ asset('public/img/logo.png') }}" alt="logo" class="logo-default"/> </a>
         <div class="menu-toggler sidebar-toggler">
             <span></span>
         </div>
@@ -325,7 +325,7 @@
                     <img alt="" class="img-circle" src="
                     @if(Auth::user()->avatar != null) {{ url(Auth::user()->avatar) }}
                     @else
-                   {{ url('/img/default-avatar.jpg') }}
+                   {{ url('public/img/default-avatar.jpg') }}
                     @endif"/>
                     <span class="username username-hide-on-mobile">{!! @Auth::user()->name !!}</span>
                     <i class="fa fa-angle-down"></i>

@@ -109,7 +109,7 @@
                                 <td> <img id="myImg" src="/{{$b->image_order}}"
                                         alt="No Image" style="width:100%;max-width:200px"
                                         onclick="openImgModal('{{$b->image_order}}')"
-                                        onerror="this.onerror=null;this.src='/img/not-found.png';"
+                                        onerror="this.onerror=null;this.src='../../public/img/not-found.png';"
                                         data-toggle="modal" data-target="#imgOrder"> 
                                 </td>
                                 <td>{!! $b->name !!}</td>
@@ -240,7 +240,7 @@
             if(image_order){
                 img.src ='/'+image_order;
             }else{
-                img.src ='/img/not-found.png';
+                img.src ='../../public/img/not-found.png';
             }
             $("#imgOrder").css("display", "block");
         }

@@ -109,24 +109,24 @@ class WalletController extends Controller
                     if (Auth::user()->role == 'collaborators') {
                         if ($b->payment_type == 1) {
                             if (in_array($b->first_agency, $result)) {
-                                return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                                    '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                                return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                                    '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                             } else {
-                                return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                                    '<img src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                                return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                                    '<img src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                             }
                         } else {
                             if (in_array($b->last_agency, $result)) {
-                                return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                                    '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                                return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                                    '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('/publicimg/incorect.png') . '" width="30px"></img>';
                             } else {
-                                return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                                    '<img src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                                return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                                    '<img src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                             }
                         }
                     } else {
-                        return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                            '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                        return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                            '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                     }
                 }
                 return '';

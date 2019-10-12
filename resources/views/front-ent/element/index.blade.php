@@ -18,13 +18,13 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <div class="banner-title">Ứng dụng <span>Smart Express</span></div>
-                    <p>Để trại nghiệm những tính năng mới nhất, tốt nhất. Tạo đơn hàng nhanh chóng và tiện lợi. Quý
+                    <p>Để trải nghiệm những tính năng mới nhất, tốt nhất. Tạo đơn hàng nhanh chóng và tiện lợi. Quý
                         khách vui lòng tải ứng dụng trên App Store hoặc Google Play.</p>
                     <a target="_blank"
                        href="https://itunes.apple.com/us/app/giao-h%C3%A0ng-smart-express/id1393897193?ls=1&mt=8"><img
-                                src="{!! asset('/landing_page/images/download-ios.png') !!}"/></a>
+                                src="{!! asset('public/landing_page/images/download-ios.png') !!}"/></a>
                     <a target="_blank" href="https://play.google.com/store/apps/details?id=com.smartexpress.android">
-                        <img src="{!! asset('/landing_page/images/download-android.png') !!}"/></a>
+                        <img src="{!! asset('public/landing_page/images/download-android.png') !!}"/></a>
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -47,7 +47,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" style="color:#00a99d;" id="exampleModalLabel">Thông báo &nbsp; <img
-                                    src="{!! asset('/img/corect.png') !!}" width="30px"></h5>
+                                    src="{!! asset('public/img/corect.png') !!}" width="30px"></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

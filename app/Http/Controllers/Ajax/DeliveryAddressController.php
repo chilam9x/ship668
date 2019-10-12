@@ -30,7 +30,7 @@ class DeliveryAddressController extends Controller
                 return implode(' ', $action);
             })
             ->editColumn('default', function ($d) {
-                return $d->default == 1 ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' : '<img onclick="changeDefault(' . $d->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                return $d->default == 1 ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' : '<img onclick="changeDefault(' . $d->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
             })
             ->rawColumns(['action', 'default'])
             ->make(true);

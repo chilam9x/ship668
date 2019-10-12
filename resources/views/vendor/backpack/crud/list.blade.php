@@ -124,10 +124,10 @@
 
 @section('after_styles')
   <!-- DATA TABLES -->
-  <link href="{{ asset('vendor/adminlte/plugins/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/crud.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/form.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/backpack/crud/css/list.css') }}">
+  <link href="{{ asset('public/vendor/adminlte/plugins/datatables/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{{ asset('public/vendor/backpack/crud/css/crud.css') }}">
+  <link rel="stylesheet" href="{{ asset('public/vendor/backpack/crud/css/form.css') }}">
+  <link rel="stylesheet" href="{{ asset('public/vendor/backpack/crud/css/list.css') }}">
 
   <!-- CRUD LIST CONTENT - crud_list_styles stack -->
   @stack('crud_list_styles')
@@ -135,11 +135,11 @@
 
 @section('after_scripts')
   	<!-- DATA TABLES SCRIPT -->
-    <script src="{{ asset('vendor/adminlte/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/vendor/adminlte/plugins/datatables/jquery.dataTables.js') }}" type="text/javascript"></script>
 
-    <script src="{{ asset('vendor/backpack/crud/js/crud.js') }}"></script>
-    <script src="{{ asset('vendor/backpack/crud/js/form.js') }}"></script>
-    <script src="{{ asset('vendor/backpack/crud/js/list.js') }}"></script>
+    <script src="{{ asset('public/vendor/backpack/crud/js/crud.js') }}"></script>
+    <script src="{{ asset('public/vendor/backpack/crud/js/form.js') }}"></script>
+    <script src="{{ asset('public/vendor/backpack/crud/js/list.js') }}"></script>
 
     @if ($crud->exportButtons())
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
@@ -153,7 +153,7 @@
     <script src="//cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js" type="text/javascript"></script>
     @endif
 
-    <script src="{{ asset('vendor/adminlte/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('public/vendor/adminlte/plugins/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
 
 	<script type="text/javascript">
 	  jQuery(document).ready(function($) {

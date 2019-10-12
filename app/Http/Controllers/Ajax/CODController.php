@@ -96,8 +96,8 @@ class CODController extends Controller
             })
             ->editColumn('COD_status', function ($b) {
                 if ($b->COD > 0) {
-                    return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                        '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                    return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                        '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                 }
                 return '';
             })

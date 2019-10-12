@@ -146,9 +146,9 @@
                 $("#province_acive img").remove();
                 if (res == 1) {
                     $("#check_province").show();
-                    $("#province_acive").append('<img onclick="changeProvinceActive(' + data + ')" src="{{asset('img/corect.png')}}" width="30px"></img>');
+                    $("#province_acive").append('<img onclick="changeProvinceActive(' + data + ')" src="{{asset('public/img/corect.png')}}" width="30px"></img>');
                 } else {
-                    $("#province_acive").append('<img onclick="changeProvinceActive(' + data + ')" src="{{asset('img/incorect.png')}}" width="30px"></img>');
+                    $("#province_acive").append('<img onclick="changeProvinceActive(' + data + ')" src="{{asset('public/img/incorect.png')}}" width="30px"></img>');
                     $("#check_province").hide();
                 }
             });
@@ -163,9 +163,9 @@
                 $("#province_acive img").remove();
                 if (res == 1) {
                     $("#check_province").show();
-                    $("#province_acive").append('<img onclick="changeProvinceActive(' + id + ')" src="{{asset('img/corect.png')}}" width="30px"></img>');
+                    $("#province_acive").append('<img onclick="changeProvinceActive(' + id + ')" src="{{asset('public/img/corect.png')}}" width="30px"></img>');
                 } else {
-                    $("#province_acive").append('<img onclick="changeProvinceActive(' + id + ')" src="{{asset('img/incorect.png')}}" width="30px"></img>');
+                    $("#province_acive").append('<img onclick="changeProvinceActive(' + id + ')" src="{{asset('public/img/incorect.png')}}" width="30px"></img>');
                     $("#check_province").hide();
                 }
             });
@@ -179,9 +179,9 @@
             }).done(function (res) {
                 $("#check_province img").remove();
                 if (res == 1) {
-                    $("#check_province").append('<img onclick="changeProvinceType(' + data + ')" src="{{asset('img/corect.png')}}" width="30px"></img>');
+                    $("#check_province").append('<img onclick="changeProvinceType(' + data + ')" src="{{asset('public/img/corect.png')}}" width="30px"></img>');
                 } else {
-                    $("#check_province").append('<img onclick="changeProvinceType(' + data + ')" src="{{asset('img/incorect.png')}}" width="30px"></img>');
+                    $("#check_province").append('<img onclick="changeProvinceType(' + data + ')" src="{{asset('public/img/incorect.png')}}" width="30px"></img>');
                 }
             });
         }
@@ -195,9 +195,9 @@
             }).done(function (res) {
                 $("#check_province img").remove();
                 if (res == 1) {
-                    $("#check_province").append('<img onclick="changeProvinceType(' + id + ')" src="{{asset('img/corect.png')}}" width="30px"></img>');
+                    $("#check_province").append('<img onclick="changeProvinceType(' + id + ')" src="{{asset('public/img/corect.png')}}" width="30px"></img>');
                 } else {
-                    $("#check_province").append('<img onclick="changeProvinceType(' + id + ')" src="{{asset('img/incorect.png')}}" width="30px"></img>');
+                    $("#check_province").append('<img onclick="changeProvinceType(' + id + ')" src="{{asset('public/img/incorect.png')}}" width="30px"></img>');
                 }
             });
         }

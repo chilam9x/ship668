@@ -25,6 +25,6 @@
             </span>
     </div>
     <div class="intro-right">
-        <img src="{!! asset('/landing_page/images/img-intro.jpg') !!}" />
+        <img src="{!! asset('public/landing_page/images/img-intro.jpg') !!}" />
     </div>
 </section>

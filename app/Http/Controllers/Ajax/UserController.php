@@ -50,7 +50,7 @@ class UserController extends Controller
                 return implode(', ', $data);
             })
             ->editColumn('avatar', function ($user) {
-                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('/img/default-avatar.jpg');
+                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('public/img/default-avatar.jpg');
                 $data = '<img src="' . $user->avatar . '" width="70px"></img>';
                 return $data;
             })
@@ -140,7 +140,7 @@ class UserController extends Controller
                 return number_format($wallet);
             })
             ->editColumn('avatar', function ($user) {
-                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('/img/default-avatar.jpg');
+                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('public/img/default-avatar.jpg');
                 $data = '<img src="' . $user->avatar . '" width="70px"></img>';
                 return $data;
             })
@@ -176,7 +176,7 @@ class UserController extends Controller
         $data = $booking->select('bookings.*')->get();
         return datatables()->of($data)
             ->editColumn('action', function ($b) {
-                return '<img onclick="changeOweStatus(' . $b->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                return '<img onclick="changeOweStatus(' . $b->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
             })
             ->editColumn('payment_date', function ($b) {
                 return $b->payment_date != null ? $b->payment_date : '';
@@ -276,7 +276,7 @@ class UserController extends Controller
                 return $user->home_number . ', ' . $ward_name . ', ' . $district_name . '. ' . $province_name;
             })
             ->editColumn('avatar', function ($user) {
-                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('/img/default-avatar.jpg');
+                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('public/img/default-avatar.jpg');
                 $data = '<img src="' . $user->avatar . '" width="70px"></img>';
                 return $data;
             })
@@ -333,7 +333,7 @@ class UserController extends Controller
                 return number_format($data) . '<br/><a style="margin-top: 5px" href="#" onclick="shipperPaid([' . $user->id . ', \'COD_paid\', ' . $data . '])" class="btn btn-xs btn-success"> Thanh toán</a>'; //<a href="' . url('admin/shippers/detail_total_cod/' . $user->id . '?type=cod&name=' . $user->name) . '" class="btn btn-xs btn-info">Chi tiết</a>
             })
             ->editColumn('avatar', function ($user) {
-                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('/img/default-avatar.jpg');
+                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('public/img/default-avatar.jpg');
                 $data = '<img src="' . $user->avatar . '" width="80px"></img>';
                 return $data;
             })
@@ -403,7 +403,7 @@ class UserController extends Controller
                 return number_format($data) . '<br/><a style="margin-top: 5px" href="#" onclick="shipperPaid([' . $user->id . ', \'COD_paid\', ' . $data . '])" class="btn btn-xs btn-success"> Thanh toán</a>'; //<a href="' . url('admin/shippers/detail_total_cod/' . $user->id . '?type=cod&name=' . $user->name) . '" class="btn btn-xs btn-info">Chi tiết</a>
             })
             ->editColumn('avatar', function ($user) {
-                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('/img/default-avatar.jpg');
+                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('public/img/default-avatar.jpg');
                 $data = '<img src="' . $user->avatar . '" width="80px"></img>';
                 return $data;
             })
@@ -461,7 +461,7 @@ class UserController extends Controller
         $liability = PaidHistory::where('agency_id', $id)->where('type', 0)->where('status', 0)->get();
         return datatables()->of($liability)
             ->addColumn('action', function ($a) {
-                return '<img onclick="changeStatus(' . $a->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                return '<img onclick="changeStatus(' . $a->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
             })
             ->editColumn('value', function ($a) {
                 return number_format($a->value);

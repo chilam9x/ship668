@@ -11,7 +11,7 @@
 @section('content')
     @push('css')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
-        <link rel="stylesheet" href="{{ URL::asset('css/report.css')}}">
+        <link rel="stylesheet" href="{{ URL::asset('public/css/report.css')}}">
     @endpush
     <div class="row">
         <div class="col-sm-4">
@@ -383,7 +383,7 @@
     </div>
 @endsection
 @push('script')
-    <script type="text/javascript" src="{{ URL::asset('js/chartjs.js')}}"></script>
+    <script type="text/javascript" src="{{ URL::asset('public/js/chartjs.js')}}"></script>
     <script>
         //Ajax Header
         $.ajaxSetup({

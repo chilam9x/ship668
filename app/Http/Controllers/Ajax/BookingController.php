@@ -111,7 +111,7 @@ class BookingController extends Controller
                 return $image;
             })
             ->editColumn('image_order', function ($b) {
-                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='../../public/img/not-found.png' width='150'/>");
             })
             ->editColumn('uuid', function ($b) {
                 return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
@@ -246,7 +246,7 @@ class BookingController extends Controller
                 return implode(' ', $action);
             })
             ->editColumn('image_order', function ($b) {
-                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='../../public/img/not-found.png' width='150'/>");
             })
             ->editColumn('uuid', function ($b) {
                 return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
@@ -332,7 +332,7 @@ class BookingController extends Controller
                 return $data;
             })
             ->editColumn('image_order', function ($b) {
-                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='../../public/img/not-found.png' width='150'/>");
             })
             ->editColumn('uuid', function ($b) {
                 return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
@@ -441,7 +441,7 @@ class BookingController extends Controller
                 return $b->sender->name . ' ' . $b->sender->phone_number;
             })
             ->editColumn('image_order', function ($b) {
-                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='../../public/img/not-found.png' width='150'/>");
             })
             ->editColumn('uuid', function ($b) {
                 return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
@@ -483,24 +483,24 @@ class BookingController extends Controller
                     if (Auth::user()->role == 'collaborators') {
                         if ($b->payment_type == 1) {
                             if (in_array($b->first_agency, $result)) {
-                                return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                                    '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                                return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                                    '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                             } else {
-                                return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                                    '<img src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                                return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                                    '<img src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                             }
                         } else {
                             if (in_array($b->last_agency, $result)) {
-                                return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                                    '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                                return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                                    '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                             } else {
-                                return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                                    '<img src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                                return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                                    '<img src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                             }
                         }
                     } else {
-                        return $b->COD_status == 'finish' ? '<img src="' . asset('/img/corect.png') . '" width="30px"></img>' :
-                            '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('/img/incorect.png') . '" width="30px"></img>';
+                        return $b->COD_status == 'finish' ? '<img src="' . asset('public/img/corect.png') . '" width="30px"></img>' :
+                            '<img onclick="changeCODStatus(' . $b->id . ')" src="' . asset('public/img/incorect.png') . '" width="30px"></img>';
                     }
                 }
                 return '';
@@ -549,7 +549,7 @@ class BookingController extends Controller
                 return $b->sender->name . ' ' . $b->sender->phone_number;
             })
             ->editColumn('image_order', function ($b) {
-                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='../../public/img/not-found.png' width='150'/>");
             })
             ->editColumn('uuid', function ($b) {
                 return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
@@ -640,7 +640,7 @@ class BookingController extends Controller
                 return $b->user_id != 0 ? @BookDelivery::where('id', $b->id)->where('category', 'return')->first()->shipper_name : '';
             })
             ->editColumn('image_order', function ($b) {
-                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='../../public/img/not-found.png' width='150'/>");
             })
             ->editColumn('uuid', function ($b) {
                 return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;
@@ -791,7 +791,7 @@ class BookingController extends Controller
                 return implode(' ', $action);
             })
             ->editColumn('image_order', function ($b) {
-                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='/img/not-found.png' width='150'/>");
+                return ($b->image_order !=null ? '<img width="150" src="' . asset('/' . $b->image_order) . '">' : "<img src='../../public/img/not-found.png' width='150'/>");
             })
             ->editColumn('uuid', function ($b) {
                 return \QrCode::size(100)->generate($b->uuid).'<br>'.$b->uuid;

@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <div class="banner-title">Ứng dụng <span>Smart Express</span></div>
+                    <div class="banner-title">Ứng dụng <span>Ship668</span></div>
                     <p>Để trải nghiệm những tính năng mới nhất, tốt nhất. Tạo đơn hàng nhanh chóng và tiện lợi. Quý
                         khách vui lòng tải ứng dụng trên App Store hoặc Google Play.</p>
                     <a target="_blank"

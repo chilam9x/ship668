@@ -1,8 +1,8 @@
 <!-- INTRO -->
 <section class="intro">
     <div class="intro-left">
-        <h1>Smart Express</h1>
-        <p>Tốc độ giao hàng tác động rất lớn đến khách hàng trong bán lẻ trực tuyến. Smart Express nỗ lực mỗi ngày để cung cấp dịch vụ giao hàng trong ngày và thu tiền hộ uy tín và đáng tin cậy.</p>
+        <h1>Ship668</h1>
+        <p>Tốc độ giao hàng tác động rất lớn đến khách hàng trong bán lẻ trực tuyến. Ship668 nỗ lực mỗi ngày để cung cấp dịch vụ giao hàng trong ngày và thu tiền hộ uy tín và đáng tin cậy.</p>
         <span>
                 <i class="fas fa-check"></i>
                 Miễn phí thu hộ tiền (COD).

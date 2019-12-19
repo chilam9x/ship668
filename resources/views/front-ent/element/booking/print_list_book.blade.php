@@ -32,7 +32,7 @@
                     <img src="{{asset('public/img/logo.png')}}" width="100%">
                 </div>
                 <div class="col-lg-10 pull right">
-                    <h1><b>Dịch vụ vận chuyển hàng hóa Smart Express</b></h1>
+                    <h1><b>Dịch vụ vận chuyển hàng hóa Ship668</b></h1>
                     <div class="row" style="text-align: left">
                         <div class="col-lg-4">
                             <p><b>Đại lý: </b>{{  @$booking->agency->name != null ? $booking->agency->name : '......................................................' }}</p>

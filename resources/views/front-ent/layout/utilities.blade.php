@@ -3,7 +3,7 @@
         <div class="col-md-2 col-sm-12"></div>
         <div class="col-md-8 col-sm-12 title-large">
             <h1>Tiện ích</h1>
-            <p>Để giải đáp thêm về thắc mắc hoặc cần hỗ trợ thêm. Quý khách vui lòng liên hệ với Smart Express theo
+            <p>Để giải đáp thêm về thắc mắc hoặc cần hỗ trợ thêm. Quý khách vui lòng liên hệ với Ship668 theo
                 thông tin dưới đây.</p>
         </div>
     </div>

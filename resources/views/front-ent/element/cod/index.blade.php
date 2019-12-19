@@ -21,10 +21,10 @@
                     <div class="collapse navbar-collapse" id="navbarColor01">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item {{isset($active) && $active == 'pending' ? 'active' : ''}}">
-                                <a class="nav-link" href="{{ url('/front-ent/COD/pending') }}">Smart Express sắp chuyển đến bạn</a>
+                                <a class="nav-link" href="{{ url('/front-ent/COD/pending') }}">Ship668s sắp chuyển đến bạn</a>
                             </li>
                             <li class="nav-item {{isset($active) && $active == 'finish' ? 'active' : ''}}">
-                                <a class="nav-link" href="{{ url('/front-ent/COD/finish') }}">Smart Express đã chuyển đến bạn</a>
+                                <a class="nav-link" href="{{ url('/front-ent/COD/finish') }}">Ship668 đã chuyển đến bạn</a>
                             </li>
                         </ul>
                     </div>

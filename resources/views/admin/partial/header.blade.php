@@ -2,6 +2,7 @@
     .page-header.navbar .page-logo .logo-default {
         margin: 0 !important;
         max-width: 120px;
+        height: 3em
     }
 </style>
 <div class="page-header-inner ">

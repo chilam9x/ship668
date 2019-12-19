@@ -80,6 +80,7 @@
         $(document).ready(function () {
             var filter = $(".dataTables_filter").val();
             var id = '#{{$id}}';
+            console.log(filter);
             var oTable = $(id).DataTable({
                 order: [[ 0, "desc" ]],
                 ajax: {
@@ -87,6 +88,7 @@
                     type: '{{ $method or "GET"}}',
                     @if (isset($customSearch))
                     data: function(d){
+                        console.log(d);
                         d.search_status = $('select[name=search_status]').val();
                         d.search_shipper = $('input[name=search_shipper]').val();
                     }

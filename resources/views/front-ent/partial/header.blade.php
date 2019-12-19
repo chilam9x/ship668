@@ -8,7 +8,7 @@
 <div class="container header">
     <div class="row">
         <div class="col-md-3 logo">
-            <a href="{!! url('/') !!}"><img alt="Logo" src="{!! asset('public/landing_page/images/Logo.png') !!}" width="64%"></a>
+            <a href="{!! url('/') !!}"><img alt="Logo" src="{!! asset('public/landing_page/images/Logo.png') !!}" ></a>
         </div>
         <div class="col-md-9">
             <ul class="menu">
@@ -16,7 +16,7 @@
                     <li class="dropdown" style="margin-top: -5px">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
                             <img style="margin-top: -10px" width="40px" alt=""
-                                 src="{{Auth::user()->avatar != null ? url(Auth::user()->avatar) : url('public/img/default-avatar.jpg')}}">
+                                src="{{Auth::user()->avatar != null ? url(Auth::user()->avatar) : url('public/img/default-avatar.jpg')}}">
                             <span class="username username-hide-on-mobile">{!! @Auth::user()->name !!}</span>
                             @if(@Auth::user()->is_vip == 1)
                             <img src="{{ asset('public/img/vip.png') }}" width="30px" title="Khách hàng VIP">
@@ -46,7 +46,7 @@
                 @else
                     <li><a href="#" data-toggle="modal" data-target="#loginModal"><i class="fa fa-user"></i> Đăng nhập</a></li>
                 @endif
-                <li>Hotline: <b>(028) 22 419 555</b></li>
+                <li>Hotline: <b>0396.504.701</b></li>
                 <li><a href="{{ url('/front-ent/policy') }}">Đồng hành cùng bạn</a></li>
                 <li><a href="{!! url('/') !!}">Trang chủ</a></li>
             </ul>

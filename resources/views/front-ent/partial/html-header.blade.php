@@ -2,7 +2,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Smart Express</title>
+    <title>Ship668</title>
     <link rel="shortcut icon" href="{{ asset('public/img/logo.png') }}"/>
     <!-- Link Style Sheet -->
     <link rel="stylesheet" href="{!! asset('public/landing_page/css/style.css') !!}">

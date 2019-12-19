@@ -44,8 +44,8 @@ class UpdateUrlImage extends Command
         DB::beginTransaction();
         try {
             foreach ($report as $rp) {
-                if (strpos($rp->image, 'http://www.smartexpress.vn/') !== false) {
-                    $data = str_replace("http://www.smartexpress.vn/", "", $rp->image);
+                if (strpos($rp->image, 'https://ship668.com//') !== false) {
+                    $data = str_replace("https://ship668.com//", "", $rp->image);
                     ReportImage::where('id', $rp->id)->update(['image' => $data]);
                 }
             }

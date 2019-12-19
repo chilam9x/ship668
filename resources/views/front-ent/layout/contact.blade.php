@@ -4,7 +4,7 @@
             <div class="col-md-2 col-sm-12"></div>
             <div class="col-md-8 col-sm-12 title-large">
                 <h1>Liên hệ</h1>
-                <p>Để giải đáp thêm về thắc mắc hoặc cần hỗ trợ thêm. Quý khách vui lòng liên hệ với Smart Express theo
+                <p>Để giải đáp thêm về thắc mắc hoặc cần hỗ trợ thêm. Quý khách vui lòng liên hệ với Ship668 theo
                     thông tin dưới đây.</p>
             </div>
         </div>
@@ -50,19 +50,19 @@
                 <ul>
                     <li>
                         <i class="fas fa-map-marker-alt cyan"></i>
-                        <span>79 Chương Dương, Phường Linh Chiểu, Quận Thủ đức, TP. Hồ Chí Minh, Việt Nam</span>
+                        <span>246/47 Hòa Hưng, phường 13, quận 10, TP. Hồ Chí Minh, Việt Nam</span>
                     </li>
                     <li>
                         <i class="fas fa-phone cyan"></i>
-                        <span>(028) 22 419 555</span>
+                        <span>0396.504.701 - 09640.222.63</span>
                     </li>
                     <li>
                         <i class="fas fa-envelope cyan"></i>
-                        <span>hotro.smartexpress@gmail.com</span>
+                        <span>hotro.ship668@gmail.com</span>
                     </li>
                     <li>
                         <i class="fas fa-globe cyan"></i>
-                        <span><a href="http://www.smartexpress.vn" style="color: #f15922; text-decoration: none">www.smartexpress.vn</a> </span>
+                        <span><a href="https://ship668.com/" style="color: #4c96d7 ; text-decoration: none">https://ship668.com/</a> </span>
                     </li>
                 </ul>
             </div>

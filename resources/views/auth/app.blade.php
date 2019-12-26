@@ -14,7 +14,7 @@
 <div class="content">
     @yield('main')
 </div>
-<div class="copyright">Copyright &copy; UITShop 2017</div>
+<div class="copyright">Copyright &copy; Ship668 2020</div>
 <script src="{{asset('public/js/jquery.js')}}" type="text/javascript"></script>
 <script src="{{asset('public/js/bootstrap.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('public/js/jquery.blockui.min.js')}}" type="text/javascript"></script>

@@ -29,7 +29,7 @@
         <div class="col-xs-12">
             <div class="row">
                 <div class="col-lg-2 pull left">
-                    <img src="{{asset('public/img/logo.png')}}" width="100%">
+                    <img src="{{asset('public/img/logo.png')}}" width="40%">
                 </div>
                 <div class="col-lg-10 pull right">
                     <h1><b>Dịch vụ vận chuyển hàng hóa Ship668</b></h1>
@@ -166,7 +166,7 @@
 
             </div>
             <div class="page-footer-inner" style="text-align: center; margin-top: 150px">
-                Dịch vụ vận chuyển hàng hóa Smart-express
+                Dịch vụ vận chuyển hàng hóa Ship668
             </div>
         </div>
         @endforeach

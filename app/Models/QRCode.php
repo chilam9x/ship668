@@ -12,13 +12,11 @@ use Illuminate\Database\Eloquent\Model;
 class QRCode extends Model
 {
     protected $table = 'qrcode';
+    protected $fillable = [
+        'name', 'is_used'
+    ];
     public $timestamps = false;
 
-    public static function getList()
-    {
-        $res = DB::table('qrcode as q')->leftJoin('bookings as b', 'b.qrcode_id', '=', 'q.id')->select('q.*', 'b.id as booking_id')->orderBy('id', 'desc')->paginate(20);
-        return $res;
-    }
     public static function find($data)
     {
         $res = DB::table('qrcode as q')

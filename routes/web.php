@@ -263,7 +263,8 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax'], function () {
     Route::get('register/agency', 'RegisterController@agency');
     Route::get('feedback', 'RegisterController@feedback');
     Route::get('version', 'SettingController@version');
-
+    //qrcode
+    Route::get('qrcode', 'QRCodeController@qrcode');
     // notification
     Route::get('notifications', 'NotificationController@getNotification');
     Route::get('promotions', 'PromotionController@getPromotion');

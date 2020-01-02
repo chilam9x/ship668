@@ -57,10 +57,9 @@ class UserController extends Controller
             ->rawColumns(['avatar', 'action'])
             ->make(true);
     }
-
     public function getCustomer()
     {
-        $user = User::where('role', 'customer')->where('delete_status', 0)->orderBy('id','desc');
+        $user = User::where('role', 'customer')->where('delete_status', 0)->orderBy('id', 'desc');
         return datatables()->of($user)
             ->addColumn('action', function ($user) {
                 $action = [];
@@ -76,6 +75,20 @@ class UserController extends Controller
                 }
                 return implode(' ', $action);
             })
+            ->editColumn('avatar', function ($user) {
+                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('public/img/default-avatar.jpg');
+                $data = '<img src="' . $user->avatar . '" width="70px"></img>';
+                return $data;
+            })
+            ->editColumn('name', function ($user) {
+                $name = $user->name;
+                if ($user->is_vip == 1) {
+                    $name .= ' <img src="' . asset('public/img/vip.png') . '" alt="VIP" title="Khách hàng VIP" width="40px" />';
+                } elseif ($user->is_vip == 2) {
+                    $name .= ' <img src="' . asset('public/img/pro.png') . '" alt="Pro" title="Khách hàng Pro" width="40px" />';
+                }
+                return $name;
+            })
             ->addColumn('owe', function ($user) {
                 $booking = Booking::where('sender_id', $user->id)->where('owe', 0)->where(function ($query) {
                     // $query->where('status', 'return')->where('sub_status', 'none')->whereHas('deliveries', function($d) {
@@ -84,33 +97,34 @@ class UserController extends Controller
                     //     ->orWhere('status', 'completed')->whereHas('deliveries', function ($d1){
                     //         $d1->where('category', 'send');
                     //     });
-                    $query->where('status', 'completed')->whereHas('deliveries', function ($d1){
-                            $d1->where('category', 'send');
-                        });
+                    $query->where('status', 'completed')
+                        // ->whereHas('deliveries', function ($d1) {
+                        //     $d1->where('category', 'send');
+                        // })
+                    ;
                 });
                 if (Auth::user()->role == 'collaborators') {
                     $user_id = Auth::user()->id;
                     $scope = Collaborator::where('user_id', $user_id)->pluck('agency_id');
                     $booking = $booking->whereIn('last_agency', $scope);
-
                 }
                 $booking = $booking->select('bookings.*');
                 $data = round(($booking->sum('price') + $booking->sum('incurred')) - $booking->sum('paid'));
                 return number_format($data) . '<br/><a style="margin-top: 5px" href="' . url('admin/customers/owe/' . $user->id) . '" class="btn btn-xs btn-success"> Chi tiết</a>';
             })
             ->editColumn('total_COD', function ($user) {
-                    $cod = Booking::where('sender_id', $user->id)->where('status', 'completed')->where('COD', '>', 0)->where('COD_status', 'pending');
-                    if(Auth::user()->role == 'collaborators') {
-                        $scope = Collaborator::where('user_id', Auth::user()->id)->pluck('agency_id');
-                        $cod = $cod->whereIn('last_agency', $scope);
-                    }
-                    $cod = $cod->sum('COD');
-                return number_format($cod).'<br/><a style="margin-top: 5px" href="' . url('admin/COD_details/' . $user->id) . '" class="btn btn-xs btn-success">Chi tiết</a>';
+                $cod = Booking::where('sender_id', $user->id)->where('status', 'completed')->where('COD', '>', 0)->where('COD_status', 'pending');
+                if (Auth::user()->role == 'collaborators') {
+                    $scope = Collaborator::where('user_id', Auth::user()->id)->pluck('agency_id');
+                    $cod = $cod->whereIn('last_agency', $scope);
+                }
+                $cod = $cod->sum('COD');
+                return number_format($cod) . '<br/><a style="margin-top: 5px" href="' . url('admin/COD_details/' . $user->id) . '" class="btn btn-xs btn-success">Chi tiết</a>';
             })
             ->addColumn('wallet', function ($user) {
                 $wallet = 0;
                 $cod = Booking::where('sender_id', $user->id)->where('status', 'completed')->where('COD', '>', 0)->where('COD_status', 'pending');
-                if(Auth::user()->role == 'collaborators') {
+                if (Auth::user()->role == 'collaborators') {
                     $scope = Collaborator::where('user_id', Auth::user()->id)->pluck('agency_id');
                     $cod = $cod->whereIn('last_agency', $scope);
                 }
@@ -124,46 +138,33 @@ class UserController extends Controller
                 //         });
                 // });
                 $booking = Booking::where('sender_id', $user->id)->where('owe', 0)->where(function ($query) {
-                    $query->where('status', 'completed')->whereHas('deliveries', function ($d1){
-                            $d1->where('category', 'send');
-                        });
+                    $query->where('status', 'completed')
+                        // ->whereHas('deliveries', function ($d1) {
+                        //     $d1->where('category', 'send');
+                        // })
+                    ;
                 });
                 if (Auth::user()->role == 'collaborators') {
                     $user_id = Auth::user()->id;
                     $scope = Collaborator::where('user_id', $user_id)->pluck('agency_id');
                     $booking = $booking->whereIn('last_agency', $scope);
-
                 }
                 $booking = $booking->select('bookings.*');
                 $data = round(($booking->sum('price') + $booking->sum('incurred')) - $booking->sum('paid'));
                 $wallet = round($cod - $data);
                 return number_format($wallet);
             })
-            ->editColumn('avatar', function ($user) {
-                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('public/img/default-avatar.jpg');
-                $data = '<img src="' . $user->avatar . '" width="70px"></img>';
-                return $data;
-            })
-            ->editColumn('name', function ($user) {
-                $name = $user->name;
-                if ($user->is_vip == 1) {
-                    $name .= ' <img src="' . asset('img/vip.png') . '" alt="VIP" title="Khách hàng VIP" width="40px" />';
-                } elseif ($user->is_vip == 2) {
-                    $name .= ' <img src="' . asset('img/pro.png') . '" alt="Pro" title="Khách hàng Pro" width="40px" />';
-                }
-                return $name;
-            })
-            ->rawColumns(['avatar', 'action', 'owe', 'total_COD', 'wallet', 'name'])
+            ->rawColumns(['avatar', 'name', 'owe', 'total_COD', 'wallet', 'action'])
             ->make(true);
     }
 
     public function getOweDetails($id)
     {
         $booking = Booking::where('sender_id', $id)->where('owe', 0)->where(function ($query) {
-            $query->where('status', 'return')->where('sub_status', 'none')->whereHas('deliveries', function($d) {
+            $query->where('status', 'return')->where('sub_status', 'none')->whereHas('deliveries', function ($d) {
                 $d->where('category', 'return')->where('status', 'completed');
             })
-                ->orWhere('status', 'completed')->whereHas('deliveries', function ($d1){
+                ->orWhere('status', 'completed')->whereHas('deliveries', function ($d1) {
                     $d1->where('category', 'send');
                 });
         });
@@ -171,7 +172,6 @@ class UserController extends Controller
             $user_id = Auth::user()->id;
             $scope = Collaborator::where('user_id', $user_id)->pluck('agency_id');
             $booking = $booking->whereIn('last_agency', $scope);
-
         }
         $data = $booking->select('bookings.*')->get();
         return datatables()->of($data)
@@ -215,9 +215,10 @@ class UserController extends Controller
                 return '';
             })
             ->addColumn('report_image', function ($b) {
-                $delivery = BookDelivery::where('book_id', $b->id)->where(function($query){
+                $delivery = BookDelivery::where('book_id', $b->id)->where(function ($query) {
                     $query->where('category', 'return')->where('status', 'completed')
-                    ->orWhere('category', 'send')->where('status', 'completed');})
+                        ->orWhere('category', 'send')->where('status', 'completed');
+                })
                     ->select('id')->get();
                 $image = '';
                 if (isset($delivery)) {
@@ -301,7 +302,7 @@ class UserController extends Controller
                 $action[] = '<a style="float:left" href="' . url('admin/shippers/' . $user->id . '/edit') . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Sửa</a>';
                 $action[] = '<div style="float: left">' . Form::open(['method' => 'DELETE', 'url' => ['admin/shippers/' . $user->id]]) .
                     '<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash-o"></i> Xóa</button>' .
-                    Form::close() . '</div>';                    
+                    Form::close() . '</div>';
                 if (Auth::user()->role == 'admin') {
                     $action[] = '<div style="float: left">' . Form::open(['method' => 'GET', 'url' => ['admin/shippers/' . $user->id]]) .
                         '<button class="btn btn-xs btn-info" type="submit"><i class="fa fa-eye"></i> Chi tiết</button>' .
@@ -371,7 +372,7 @@ class UserController extends Controller
                 $action[] = '<a style="float:left" href="' . url('admin/warehouse/' . $user->id . '/edit') . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Sửa</a>';
                 $action[] = '<div style="float: left">' . Form::open(['method' => 'DELETE', 'url' => ['admin/warehouse/' . $user->id]]) .
                     '<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash-o"></i> Xóa</button>' .
-                    Form::close() . '</div>';                    
+                    Form::close() . '</div>';
                 if (Auth::user()->role == 'admin') {
                     $action[] = '<div style="float: left">' . Form::open(['method' => 'GET', 'url' => ['admin/warehouse/' . $user->id]]) .
                         '<button class="btn btn-xs btn-info" type="submit"><i class="fa fa-eye"></i> Chi tiết</button>' .
@@ -469,7 +470,8 @@ class UserController extends Controller
             ->make(true);
     }
 
-    public function statisticalBookShipper() {
+    public function statisticalBookShipper()
+    {
         $arr = array(
             'day_receive_book' => 0,
             'day_send_book' => 0,
@@ -481,23 +483,23 @@ class UserController extends Controller
         }
 
         $arr['day_receive_book'] = BookDelivery::where('user_id', request()->id)
-                                        ->where('category', 'receive')
-                                        ->whereDate('created_at', date('Y-m-d'))
-                                        ->count();
+            ->where('category', 'receive')
+            ->whereDate('created_at', date('Y-m-d'))
+            ->count();
         $arr['day_send_book'] = BookDelivery::where('user_id', request()->id)
-                                        ->where('category', 'send')
-                                        ->whereDate('created_at', date('Y-m-d'))
-                                        ->count();
+            ->where('category', 'send')
+            ->whereDate('created_at', date('Y-m-d'))
+            ->count();
         $arr['month_receive_book'] = BookDelivery::where('user_id', request()->id)
-                                        ->where('category', 'receive')
-                                        ->whereMonth('created_at', date('m'))
-                                        ->whereYear('created_at', date('Y'))
-                                        ->count();
+            ->where('category', 'receive')
+            ->whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
+            ->count();
         $arr['month_send_book'] = BookDelivery::where('user_id', request()->id)
-                                        ->where('category', 'send')
-                                        ->whereMonth('created_at', date('m'))
-                                        ->whereYear('created_at', date('Y'))
-                                        ->count();
+            ->where('category', 'send')
+            ->whereMonth('created_at', date('m'))
+            ->whereYear('created_at', date('Y'))
+            ->count();
 
         return json_encode($arr);
     }

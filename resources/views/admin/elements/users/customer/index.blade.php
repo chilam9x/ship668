@@ -19,29 +19,28 @@
         </div>
         <div class="col-lg-12">
             @include('admin.table_paging', [
-               'id' => 'customer',
-               'title' => [
-                       'caption' => 'Dữ liệu khách hàng',
-                       'icon' => 'fa fa-table',
-                       'class' => 'portlet box green',
-               ],
-               'url' => url("/ajax/customer"),
-               'columns' => [
-                       ['data' => 'name', 'title' => 'Tên'],
-                       ['data' => 'avatar', 'title' => 'Ảnh đại diện'],
-                       ['data' => 'email', 'title' => 'Email'],
-                       ['data' => 'password_code', 'title' => 'Mã mật khẩu'],
-                       ['data' => 'phone_number', 'title' => 'Số điện thoại'],
-                       ['data' => 'role', 'title' => 'Vai trò'],
-                       ['data' => 'status', 'title' => 'Trạng thái'],
-                       ['data' => 'owe', 'title' => 'Tổng tiền cước'],
-                       ['data' => 'total_COD', 'title' => 'Tổng tiền thu hộ COD'],
-                       ['data' => 'wallet', 'title' => 'Ví tiền'],
-                       ['data' => 'created_at', 'title' => 'Ngày tạo'],
-                       ['data' => 'updated_at', 'title' => 'Ngày cập nhật'],
-                       ['data' => 'action', 'title' => 'Hành động', 'orderable' => false]
-                   ]
-               ])
+                'id' => 'customer',
+                'title' => [
+                    'caption' => 'Dữ liệu khách hàng',
+                    'icon' => 'fa fa-table',
+                    'class' => 'portlet box green',
+                ],
+                'url' => url("/ajax/customer"),
+                'columns' => [
+                    ['data' => 'name', 'title' => 'Tên'],
+                    ['data' => 'avatar', 'title' => 'Ảnh đại diện'],
+                    ['data' => 'email', 'title' => 'Email'],
+                    ['data' => 'password_code', 'title' => 'Mã mật khẩu'],
+                    ['data' => 'phone_number', 'title' => 'Số điện thoại'],
+                    ['data' => 'role', 'title' => 'Vai trò'],
+                    ['data' => 'status', 'title' => 'Trạng thái'],
+                    ['data' => 'owe', 'title' => 'Tổng tiền cước'],
+                    ['data' => 'total_COD', 'title' => 'Tổng tiền thu hộ COD'],
+                    ['data' => 'wallet', 'title' => 'Ví tiền'],
+                    ['data' => 'created_at', 'title' => 'Ngày tạo'],
+                    ['data' => 'updated_at', 'title' => 'Ngày cập nhật'],
+                    ['data' => 'action', 'title' => 'Hành động', 'orderable' => false]
+                ]])
         </div>
     </div>
 
@@ -53,8 +52,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 style="font-weight: bold; color: #1d0c09" class="modal-title">Xuất đơn hàng theo khách hàng</h4>
                 </div>
-                <form id="import" method="get" action="{!! url('admin/customers/list_booking') !!}"
-                      enctype="multipart/form-data">
+                <form id="import" method="get" action="{!! url('admin/customers/list_booking') !!}" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="row" style="margin-top: 15px">
                             {{csrf_field()}}

@@ -27,6 +27,7 @@
                 ],
                 'url' => url("/ajax/customer"),
                 'columns' => [
+                    ['data' => 'id', 'title' => 'ID'],
                     ['data' => 'name', 'title' => 'Tên'],
                     ['data' => 'avatar', 'title' => 'Ảnh đại diện'],
                     ['data' => 'email', 'title' => 'Email'],

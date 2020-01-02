@@ -68,13 +68,13 @@ class UserController extends Controller
                     $action[] = '<a style="float:left" href="#" onclick="exportBooking(' . $user->id . ')" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i> Xuất đơn hàng</a>';
                     $action[] = '<button type="button" class="btn btn-info btn-xs" onclick="showModal(' . $user->id . ')"><i class="icon-bell" aria-hidden="true"></i> Thông báo nhanh</button>';
                     $action[] = '<a style="float:left" href="' . url('admin/customers/' . $user->id . '/edit') . '" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Sửa</a>';
-                    $action[] = '<div style="float: left">' . Form::open(['method' => 'DELETE', 'url' => ['admin/customers/' . $user->id]]) . '<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash-o"></i> Xóa</button>'.Form::close() . '</div>';
+                    $action[] = '<div style="float: left">' . Form::open(['method' => 'DELETE', 'url' => ['admin/customers/' . $user->id]]) . '<button class="btn btn-xs btn-danger" type="submit"><i class="fa fa-trash-o"></i> Xóa</button>' . Form::close() . '</div>';
                     $action[] = '<a href="' . url('admin/customers/withdrawal/' . $user->id) . '" class="btn btn-xs btn-default" onclick="return confirm(\'Bạn có chắc chắn muốn rút tiền?\');"><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> Rút tiền</a>';
                 }
                 return implode(' ', $action);
             })
             ->editColumn('avatar', function ($user) {
-                $user->avatar = $user->avatar != null ? url('/' . $user->avatar) : asset('public/img/default-avatar.jpg');
+                $user->avatar = $user->avatar != null ? url('/public/' . $user->avatar) : asset('public/img/default-avatar.jpg');
                 $data = '<img src="' . $user->avatar . '" width="70px"></img>';
                 return $data;
             })

@@ -13,7 +13,7 @@
   "author": "quan.nb",
   "license": "ISC",
   "dependencies": {
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "socket.io": "^2.1.1",
     "socket.io-redis": "^5.2.0"
   }
